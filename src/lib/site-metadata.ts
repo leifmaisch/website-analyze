@@ -27,9 +27,16 @@ export const siteKeywords = [
 
 export function getSiteUrl() {
   return (
+    process.env.SITE_URL ??
     process.env.NEXT_PUBLIC_SITE_URL ??
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined)
   )
+}
+
+function absoluteSiteUrl(path: string) {
+  const siteUrl = getSiteUrl()
+  if (!siteUrl) return path
+  return new URL(path, siteUrl).href
 }
 
 export function createSiteMetadata(): Metadata {
@@ -100,20 +107,25 @@ export function createSharedScanMetadata(
   result: { domain: string; scores: { overall: number } },
   shareId: string
 ): Metadata {
+  const siteUrl = getSiteUrl()
   const title = `${result.domain} audit`
   const description = `Overall score ${result.scores.overall} for ${result.domain}. Full website audit with ${totalCheckCount} checks.`
   const imageAlt = `${result.domain} audit · score ${result.scores.overall}`
+  const sharePath = `/r/${shareId}`
+  const ogImagePath = `/r/${shareId}/opengraph-image`
+  const twitterImagePath = `/r/${shareId}/twitter-image`
 
   return {
+    metadataBase: siteUrl ? new URL(siteUrl) : undefined,
     title,
     description,
     openGraph: {
       title,
       description,
-      url: `/r/${shareId}`,
+      url: sharePath,
       images: [
         {
-          url: `/r/${shareId}/opengraph-image`,
+          url: absoluteSiteUrl(ogImagePath),
           width: 1200,
           height: 630,
           alt: imageAlt,
@@ -124,8 +136,8 @@ export function createSharedScanMetadata(
       card: "summary_large_image",
       title,
       description,
-      images: [`/r/${shareId}/twitter-image`],
+      images: [absoluteSiteUrl(twitterImagePath)],
     },
-    alternates: getSiteUrl() ? { canonical: `/r/${shareId}` } : undefined,
+    alternates: siteUrl ? { canonical: sharePath } : undefined,
   }
 }

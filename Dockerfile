@@ -11,6 +11,9 @@ RUN pnpm install --frozen-lockfile --ignore-scripts
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ARG SITE_URL=https://scan.netcha.se
+ENV SITE_URL=$SITE_URL
+ENV NEXT_PUBLIC_SITE_URL=$SITE_URL
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm build
 
@@ -26,6 +29,8 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV HOSTNAME=0.0.0.0
 ENV PORT=3000
+ENV SITE_URL=https://scan.netcha.se
+ENV NEXT_PUBLIC_SITE_URL=https://scan.netcha.se
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./

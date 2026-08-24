@@ -147,7 +147,7 @@ export function buildResponsiveChecks(responsive: ResponsiveMetrics): ScanCheck[
       detail:
         responsive.mobileHorizontalOverflow === 0
           ? "No horizontal overflow detected at 390px width"
-          : `${responsive.mobileHorizontalOverflow}px horizontal overflow on mobile`,
+          : `${responsive.mobileHorizontalOverflow}px horizontal overflow detected`,
     },
     {
       id: "touch-target-size",

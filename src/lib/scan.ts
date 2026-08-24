@@ -14,6 +14,7 @@ import {
   captureBrowserInsights,
 } from "@/lib/scan-browser"
 import { detectFonts } from "@/lib/scan-fonts"
+import { formatChecksForDisplay } from "@/lib/scan-check-display"
 import {
   checkSslCertificate,
   fetchExists,
@@ -203,7 +204,10 @@ export async function scanWebsite(input: string): Promise<ScanResult> {
     probedImages: imageProbe.length,
   })
 
-  const checks = [...baseChecks, ...buildResponsiveChecks(browserCapture.responsive)]
+  const checks = formatChecksForDisplay([
+    ...baseChecks,
+    ...buildResponsiveChecks(browserCapture.responsive),
+  ])
 
   const scores: ScanScores = {
     performance: scoreCategory(checks, "performance", responseTimeMs, response.ok),

@@ -2,8 +2,9 @@ import { ogImageContentType, ogImageSize } from "@/lib/og-shared"
 import { createOgImage } from "@/lib/og-image"
 import { createScanOgImage } from "@/lib/og-scan-image"
 import { getScanByShareId } from "@/lib/scans-store"
+import { siteName } from "@/lib/site-metadata"
 
-export const alt = "SiteAnalyze scan result"
+export const alt = `${siteName} scan result`
 export const size = ogImageSize
 export const contentType = ogImageContentType
 export const dynamic = "force-dynamic"

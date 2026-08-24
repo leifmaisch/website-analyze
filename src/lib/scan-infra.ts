@@ -2,7 +2,9 @@ import "server-only"
 
 import tls from "tls"
 
-const userAgent = "SiteAnalyze/1.0 (+https://siteanalyze.local)"
+import { getSiteUserAgent } from "@/lib/site-metadata"
+
+const userAgent = getSiteUserAgent()
 
 export type RedirectHop = {
   url: string

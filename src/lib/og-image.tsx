@@ -9,6 +9,7 @@ import {
   truncateText,
 } from "@/lib/og-shared"
 import { totalCheckCount } from "@/lib/scan-categories"
+import { siteName, siteTagline } from "@/lib/site-metadata"
 
 const tags = [
   `${totalCheckCount} checks`,
@@ -17,7 +18,7 @@ const tags = [
   "Fonts",
 ]
 
-export const ogImageAlt = "SiteAnalyze | Website audits made simple"
+export const ogImageAlt = `${siteName} | ${siteTagline}`
 
 export { ogImageContentType, ogImageSize } from "@/lib/og-shared"
 
@@ -60,7 +61,7 @@ export async function createOgImage() {
               letterSpacing: "-0.02em",
             }}
           >
-            SiteAnalyze
+            {siteName}
           </span>
         </div>
 
@@ -75,7 +76,7 @@ export async function createOgImage() {
             maxWidth: 760,
           }}
         >
-          Website audits made simple
+          {siteTagline}
         </p>
 
         <p

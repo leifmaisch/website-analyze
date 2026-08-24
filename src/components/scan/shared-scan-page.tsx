@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/footer"
 import { Section } from "@/components/ui/section"
 import type { ScanResult } from "@/lib/scan-types"
-import { serviceProvider } from "@/lib/site-metadata"
+import { serviceProvider, siteName } from "@/lib/site-metadata"
 
 export function SharedScanPage({ result }: { result: ScanResult }) {
   return (
@@ -29,7 +29,7 @@ export function SharedScanPage({ result }: { result: ScanResult }) {
       <Footer>
         <FooterPanel>
           <FooterBar>
-            <FooterCopyright name="SiteAnalyze" />
+            <FooterCopyright name={siteName} />
             <FooterServiceBy
               name={serviceProvider.name}
               href={serviceProvider.url}

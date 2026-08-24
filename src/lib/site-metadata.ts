@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 
 import { totalCheckCount } from "@/lib/scan-categories"
 
-export const siteName = "SiteAnalyze"
+export const siteName = "Webcheck"
 
 export const siteTagline = "Website audits made simple"
 
@@ -15,7 +15,7 @@ export const siteDescription = `Run ${totalCheckCount} automated checks across p
 
 export const siteKeywords = [
   "website audit",
-  "site analyzer",
+  "webcheck",
   "SEO checker",
   "performance scan",
   "security audit",
@@ -24,6 +24,11 @@ export const siteKeywords = [
   "website health check",
   "free website scan",
 ]
+
+export function getSiteUserAgent() {
+  const siteUrl = getSiteUrl()
+  return siteUrl ? `${siteName}/1.0 (+${siteUrl})` : `${siteName}/1.0`
+}
 
 export function getSiteUrl() {
   return (

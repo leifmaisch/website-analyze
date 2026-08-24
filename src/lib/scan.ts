@@ -15,6 +15,7 @@ import {
 } from "@/lib/scan-browser"
 import { detectFonts } from "@/lib/scan-fonts"
 import { formatChecksForDisplay } from "@/lib/scan-check-display"
+import { getSiteUserAgent } from "@/lib/site-metadata"
 import {
   checkSslCertificate,
   fetchExists,
@@ -137,7 +138,7 @@ export async function scanWebsite(input: string): Promise<ScanResult> {
     fetch(url.toString(), {
       redirect: "follow",
       headers: {
-        "User-Agent": "SiteAnalyze/1.0 (+https://siteanalyze.local)",
+        "User-Agent": getSiteUserAgent(),
         Accept: "text/html,application/xhtml+xml",
       },
       signal: AbortSignal.timeout(15000),

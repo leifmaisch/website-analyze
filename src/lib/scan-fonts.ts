@@ -1,8 +1,9 @@
 import "server-only"
 
 import type { FontItem, FontSource } from "@/lib/scan-detect"
+import { getSiteUserAgent } from "@/lib/site-metadata"
 
-const userAgent = "SiteAnalyze/1.0 (+https://siteanalyze.local)"
+const userAgent = getSiteUserAgent()
 
 const genericFonts = new Set([
   "serif",

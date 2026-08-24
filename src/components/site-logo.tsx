@@ -1,9 +1,15 @@
-import { GlobeIcon } from "@phosphor-icons/react/dist/ssr"
+import Image from "next/image"
 
 export function SiteLogo() {
   return (
-    <span className="flex size-8 items-center justify-center rounded-squircle-md bg-primary text-primary-foreground">
-      <GlobeIcon className="size-4" weight="bold" />
+    <span className="flex size-8 shrink-0 items-center justify-center">
+      <Image
+        src="/logo.png"
+        alt=""
+        width={36}
+        height={36}
+        className="size-9 max-w-none"
+      />
     </span>
   )
 }

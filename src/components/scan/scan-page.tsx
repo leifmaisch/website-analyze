@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/section"
 import type { ScanResult } from "@/lib/scan-types"
 import { totalCheckCount } from "@/lib/scan-categories"
-import { serviceProvider } from "@/lib/site-metadata"
+import { serviceProvider, siteName } from "@/lib/site-metadata"
 import { squircle } from "@/lib/squircle"
 import { surfaceDepth } from "@/lib/surface-depth"
 import { cn } from "@/lib/utils"
@@ -177,7 +177,7 @@ export function ScanPage() {
       <Footer>
         <FooterPanel>
           <FooterBar>
-            <FooterCopyright name="SiteAnalyze" />
+            <FooterCopyright name={siteName} />
             <FooterServiceBy
               name={serviceProvider.name}
               href={serviceProvider.url}

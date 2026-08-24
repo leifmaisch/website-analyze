@@ -3,6 +3,7 @@
 import Link from "next/link"
 
 import { SiteLogo } from "@/components/site-logo"
+import { siteName } from "@/lib/site-metadata"
 import { Button } from "@/components/ui/button"
 import {
   Navbar,
@@ -27,7 +28,7 @@ export function SiteNavbar() {
   return (
     <Navbar sticky>
       <NavbarFrame>
-        <NavbarBrand href="/" logo={<SiteLogo />} name="SiteAnalyze" />
+        <NavbarBrand href="/" logo={<SiteLogo />} name={siteName} />
         <NavbarLinks>
           {navItems.map((item) => (
             <NavbarLink key={item.href} href={item.href} label={item.label} />

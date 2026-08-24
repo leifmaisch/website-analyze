@@ -35,7 +35,7 @@ import {
   FooterPanel,
   FooterServiceBy,
 } from "@/components/ui/footer"
-import { serviceProvider } from "@/lib/site-metadata"
+import { serviceProvider, siteName } from "@/lib/site-metadata"
 import {
   Hero,
   HeroActions,
@@ -359,7 +359,7 @@ export function LandingPage() {
       <Footer>
         <FooterPanel>
           <FooterMain>
-            <FooterBrand href="/" logo={<SiteLogo />} name="SiteAnalyze">
+            <FooterBrand href="/" logo={<SiteLogo />} name={siteName}>
               Clear website audits for teams who care about quality, speed, search
               visibility, and security.
             </FooterBrand>
@@ -383,7 +383,7 @@ export function LandingPage() {
           </FooterMain>
           <FooterDivider />
           <FooterBar>
-            <FooterCopyright name="SiteAnalyze" />
+            <FooterCopyright name={siteName} />
             <FooterServiceBy
               name={serviceProvider.name}
               href={serviceProvider.url}

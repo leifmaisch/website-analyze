@@ -102,6 +102,7 @@ export function createSharedScanMetadata(
 ): Metadata {
   const title = `${result.domain} audit`
   const description = `Overall score ${result.scores.overall} for ${result.domain}. Full website audit with ${totalCheckCount} checks.`
+  const imageAlt = `${result.domain} audit · score ${result.scores.overall}`
 
   return {
     title,
@@ -110,11 +111,20 @@ export function createSharedScanMetadata(
       title,
       description,
       url: `/r/${shareId}`,
+      images: [
+        {
+          url: `/r/${shareId}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: imageAlt,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [`/r/${shareId}/twitter-image`],
     },
     alternates: getSiteUrl() ? { canonical: `/r/${shareId}` } : undefined,
   }

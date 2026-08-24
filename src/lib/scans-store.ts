@@ -3,7 +3,7 @@ import "server-only"
 import { eq } from "drizzle-orm"
 import { nanoid } from "nanoid"
 
-import { db } from "@/db"
+import { getDb } from "@/db"
 import { scans } from "@/db/schema"
 import type { ScanResult } from "@/lib/scan-types"
 
@@ -16,7 +16,7 @@ export async function saveScanResult(result: ScanResult): Promise<string> {
   const id = nanoid(12)
   const payload = withoutShareId(result)
 
-  await db.insert(scans).values({
+  await getDb().insert(scans).values({
     id,
     domain: payload.domain,
     result: payload,
@@ -26,7 +26,7 @@ export async function saveScanResult(result: ScanResult): Promise<string> {
 }
 
 export async function getScanByShareId(shareId: string): Promise<ScanResult | null> {
-  const record = await db.query.scans.findFirst({
+  const record = await getDb().query.scans.findFirst({
     where: eq(scans.id, shareId),
   })
 

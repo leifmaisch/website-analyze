@@ -474,9 +474,17 @@ export function ScanResults({ result }: { result: ScanResult }) {
       <div className="p-4 sm:p-6 lg:p-8">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <ScrollArea className="w-full">
-            <TabsList className="w-max min-w-full">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="checks">
+            <TabsList className="flex w-max min-w-full sm:w-full sm:min-w-0">
+              <TabsTrigger
+                value="overview"
+                className="min-w-0 flex-1 px-2 text-xs max-sm:shrink-0 max-sm:flex-none sm:px-3 sm:text-sm"
+              >
+                Overview
+              </TabsTrigger>
+              <TabsTrigger
+                value="checks"
+                className="min-w-0 flex-1 px-2 text-xs max-sm:shrink-0 max-sm:flex-none sm:px-3 sm:text-sm"
+              >
                 Checks
                 {issueCount > 0 ? (
                   <span className="text-caption ml-1 rounded-full bg-amber-500/20 px-1.5 py-0.5 text-amber-500 tabular-nums">
@@ -484,8 +492,18 @@ export function ScanResults({ result }: { result: ScanResult }) {
                   </span>
                 ) : null}
               </TabsTrigger>
-              <TabsTrigger value="preview">Preview</TabsTrigger>
-              <TabsTrigger value="stack">Stack</TabsTrigger>
+              <TabsTrigger
+                value="preview"
+                className="min-w-0 flex-1 px-2 text-xs max-sm:shrink-0 max-sm:flex-none sm:px-3 sm:text-sm"
+              >
+                Preview
+              </TabsTrigger>
+              <TabsTrigger
+                value="stack"
+                className="min-w-0 flex-1 px-2 text-xs max-sm:shrink-0 max-sm:flex-none sm:px-3 sm:text-sm"
+              >
+                Stack
+              </TabsTrigger>
             </TabsList>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>

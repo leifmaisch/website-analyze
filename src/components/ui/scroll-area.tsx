@@ -17,6 +17,14 @@ function ScrollArea({
   viewportClassName?: string
   contentClassName?: string
 }) {
+  const childArray = React.Children.toArray(children)
+  const scrollbars = childArray.filter(
+    (child) => React.isValidElement(child) && child.type === ScrollBar
+  )
+  const content = childArray.filter(
+    (child) => !React.isValidElement(child) || child.type !== ScrollBar
+  )
+
   return (
     <ScrollAreaPrimitive.Root
       data-slot="scroll-area"
@@ -27,18 +35,17 @@ function ScrollArea({
         ref={viewportRef}
         data-slot="scroll-area-viewport"
         className={cn(
-          "size-full min-h-0 min-w-0 max-w-full overscroll-contain rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 [scrollbar-gutter:stable]",
+          "size-full min-h-0 min-w-0 max-w-full overscroll-contain rounded-[inherit] outline-none transition-[color,box-shadow] focus-visible:outline-1 focus-visible:ring-[3px] focus-visible:ring-ring/50 [scrollbar-gutter:stable] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
           viewportClassName
         )}
       >
         <ScrollAreaPrimitive.Content
-          className={cn("min-w-0 w-full max-w-full", contentClassName)}
-          style={{ minWidth: 0, width: "100%" }}
+          className={cn("min-w-0 max-w-full", contentClassName ?? "w-full")}
         >
-          {children}
+          {content}
         </ScrollAreaPrimitive.Content>
       </ScrollAreaPrimitive.Viewport>
-      <ScrollBar />
+      {scrollbars}
       <ScrollAreaPrimitive.Corner />
     </ScrollAreaPrimitive.Root>
   )

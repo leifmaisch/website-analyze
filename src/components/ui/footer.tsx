@@ -18,7 +18,7 @@ function Footer({
   return (
     <footer
       data-slot="footer"
-      className={cn("border-t border-border bg-muted/25 px-4 py-10 sm:px-6 sm:py-12", className)}
+      className={cn("px-4 py-10 sm:px-6 sm:py-12", className)}
       {...props}
     >
       {children}

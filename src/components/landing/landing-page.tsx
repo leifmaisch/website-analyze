@@ -41,7 +41,6 @@ import {
   HeroDescription,
   HeroFrame,
   HeroIntro,
-  HeroLabel,
   HeroShowcase,
   HeroTitle,
 } from "@/components/ui/hero"
@@ -82,7 +81,6 @@ export function LandingPage() {
         <Hero>
           <HeroFrame>
             <HeroIntro>
-              <HeroLabel>Website intelligence</HeroLabel>
               <HeroTitle>Understand every site in minutes</HeroTitle>
               <HeroDescription>
                 Run {totalCheckCount} automated checks across performance, SEO,

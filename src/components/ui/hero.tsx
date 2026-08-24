@@ -9,7 +9,10 @@ function Hero({ className, ...props }: HeroProps) {
   return (
     <Section
       data-slot="hero"
-      className={cn("py-12 sm:py-16 md:py-24", className)}
+      className={cn(
+        "flex min-h-[calc(100svh-4.75rem)] flex-col justify-center py-6 sm:min-h-[calc(100svh-5.25rem)] sm:py-8 md:py-10",
+        className
+      )}
       {...props}
     />
   )
@@ -46,7 +49,7 @@ function HeroIntro({
     <div
       data-slot="hero-intro"
       className={cn(
-        "flex flex-col items-center gap-4 px-4 py-10 text-center sm:gap-5 sm:px-10 sm:py-14",
+        "flex flex-col items-center gap-4 px-4 py-8 text-center sm:gap-5 sm:px-10 sm:py-10 md:py-12",
         className
       )}
       {...props}
@@ -158,7 +161,7 @@ function HeroShowcase({
       data-slot="hero-showcase"
       style={squircle}
       className={cn(
-        "relative mx-1 mb-1 min-h-[200px] overflow-hidden rounded-squircle-inner border border-primary/35 bg-primary/5 sm:min-h-[280px] md:min-h-[300px]",
+        "relative mx-1 mb-1 overflow-hidden rounded-squircle-inner border border-primary/35 bg-primary/5",
         surfaceDepth("md"),
         className
       )}
@@ -168,7 +171,7 @@ function HeroShowcase({
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_80%_at_50%_100%,color-mix(in_srgb,var(--primary)_12%,transparent),transparent_65%)]"
       />
-      {children ? <div className="relative z-10 h-full w-full">{children}</div> : null}
+      {children ? <div className="relative z-10 w-full">{children}</div> : null}
     </div>
   )
 }

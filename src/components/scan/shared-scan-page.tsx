@@ -18,7 +18,7 @@ export function SharedScanPage({ result }: { result: ScanResult }) {
     <>
       <SiteNavbar />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <Section className="pb-8 md:pb-12">
           <div className="scroll-mt-24">
             <ScanResults result={result} />

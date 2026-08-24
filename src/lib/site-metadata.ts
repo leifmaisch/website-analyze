@@ -11,7 +11,7 @@ export const serviceProvider = {
   url: "https://netcha.se",
 }
 
-export const siteDescription = `Run ${totalCheckCount} automated checks across performance, SEO, security, accessibility, privacy, content, infrastructure, and mobile. Detect tech stack, analytics, and fonts in one scan.`
+export const siteDescription = `Run ${totalCheckCount} automated checks for performance, SEO, security, accessibility, and mobile. Detect tech stack, analytics, and fonts in one scan.`
 
 export const siteKeywords = [
   "website audit",
@@ -63,6 +63,11 @@ export function createSiteMetadata(): Metadata {
     creator: siteName,
     publisher: serviceProvider.name,
     alternates: siteUrl ? { canonical: "/" } : undefined,
+    icons: {
+      icon: "/favicon.ico",
+      apple: "/apple-touch-icon.png",
+    },
+    manifest: "/manifest.json",
     openGraph: {
       title: `${siteName} | ${siteTagline}`,
       description: siteDescription,

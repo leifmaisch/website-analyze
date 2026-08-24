@@ -196,7 +196,7 @@ export function HeroGraphic() {
                   className="rounded-squircle-sm border border-border/60 bg-background/60 px-2.5 py-2 sm:px-3 sm:py-2.5"
                 >
                   <div className="flex items-center justify-between gap-1.5 sm:gap-2">
-                    <span className="text-caption text-[11px] leading-tight sm:text-xs">
+                    <span className="text-caption text-xs leading-tight">
                       {checkCategoryLabels[category]}
                     </span>
                     <span

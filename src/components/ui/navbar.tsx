@@ -104,7 +104,7 @@ function NavbarBrand({
 }: NavbarBrandProps) {
   return (
     <div data-slot="navbar-brand" className={cn("min-w-0", className)} {...props}>
-      <Link href={href} className="flex min-w-0 items-center gap-2.5 py-1.5">
+      <Link href={href} className="flex min-h-11 min-w-0 items-center gap-2.5 py-1.5">
         {logo}
         {name ? <span className="text-title truncate">{name}</span> : null}
       </Link>
@@ -147,7 +147,7 @@ function NavbarLink({
       data-slot="navbar-link"
       data-active={active || undefined}
       className={cn(
-        "rounded-full px-3 py-2 text-sm font-medium transition-colors",
+        "inline-flex min-h-11 items-center rounded-full px-4 py-2.5 text-sm font-medium transition-colors",
         active
           ? "bg-muted text-foreground"
           : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
@@ -253,7 +253,7 @@ function NavbarMobileLink({
       data-slot="navbar-mobile-link"
       data-active={active || undefined}
       className={cn(
-        "rounded-squircle-md px-3 py-3 text-sm font-medium transition-colors",
+        "inline-flex min-h-11 items-center rounded-squircle-md px-4 py-3 text-sm font-medium transition-colors",
         active
           ? "bg-muted text-foreground"
           : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",

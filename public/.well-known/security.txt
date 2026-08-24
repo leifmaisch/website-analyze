@@ -1,0 +1,3 @@
+Contact: mailto:security@netcha.se
+Preferred-Languages: en
+Canonical: https://scan.netcha.se/.well-known/security.txt

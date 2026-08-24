@@ -87,7 +87,7 @@ function FooterBrand({
       className={cn("flex max-w-sm flex-col gap-4", className)}
       {...props}
     >
-      <Link href={href} className="flex w-fit items-center gap-2.5">
+      <Link href={href} className="flex w-fit min-h-11 items-center gap-2.5">
         {logo}
         {name ? <span className="text-heading text-xl">{name}</span> : null}
       </Link>
@@ -160,7 +160,7 @@ function FooterLink({
       href={href}
       data-slot="footer-link"
       className={cn(
-        "block py-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground",
+        "inline-flex min-h-11 items-center py-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground",
         className
       )}
     >
@@ -244,7 +244,7 @@ function FooterServiceBy({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-muted-foreground transition-colors hover:text-foreground"
+        className="inline-flex min-h-11 items-center text-muted-foreground transition-colors hover:text-foreground"
       >
         {name}
       </Link>

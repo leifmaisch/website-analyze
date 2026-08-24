@@ -76,7 +76,7 @@ export function LandingPage() {
       <TopGlow />
       <SiteNavbar />
 
-      <main>
+      <main id="main-content">
         <Hero>
           <HeroFrame>
             <HeroIntro>

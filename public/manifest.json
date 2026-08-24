@@ -1,0 +1,16 @@
+{
+  "name": "Webcheck",
+  "short_name": "Webcheck",
+  "description": "Website audits made simple",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#252525",
+  "theme_color": "#252525",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

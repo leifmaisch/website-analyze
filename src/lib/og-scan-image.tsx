@@ -6,9 +6,8 @@ import {
   totalCheckCount,
 } from "@/lib/scan-categories"
 import {
-  loadOgFonts,
+  loadOgAssets,
   OgBackground,
-  OgBrandMark,
   ogColors,
   ogImageSize,
   scoreColor,
@@ -152,6 +151,8 @@ function CategoryScore({
       style={{
         display: "flex",
         flexDirection: "column",
+        flex: 1,
+        width: "100%",
         gap: 10,
         padding: "16px 18px",
         borderRadius: 16,
@@ -196,7 +197,7 @@ export function createScanOgImageAlt(result: ScanResult) {
 }
 
 export async function createScanOgImage(result: ScanResult) {
-  const fonts = await loadOgFonts()
+  const { fonts, backgroundSrc } = await loadOgAssets()
   const { passCount, warnCount, failCount } = countChecks(result)
   const overall = result.scores.overall
 
@@ -214,53 +215,7 @@ export async function createScanOgImage(result: ScanResult) {
           fontFamily: "Rubik",
         }}
       >
-        <OgBackground />
-
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 28,
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <OgBrandMark size={52} />
-            <span
-              style={{
-                fontSize: 28,
-                fontWeight: 600,
-                color: ogColors.foreground,
-              }}
-            >
-              SiteAnalyze
-            </span>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-              padding: "8px 16px",
-              borderRadius: 999,
-              border: `1px solid ${ogColors.border}`,
-              backgroundColor: ogColors.card,
-              color: ogColors.muted,
-              fontSize: 18,
-            }}
-          >
-            <div
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: 999,
-                backgroundColor: ogColors.primary,
-              }}
-            />
-            Scan complete
-          </div>
-        </div>
+        <OgBackground src={backgroundSrc} />
 
         <div
           style={{
@@ -333,18 +288,31 @@ export async function createScanOgImage(result: ScanResult) {
         <div
           style={{
             position: "relative",
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
+            display: "flex",
+            flexDirection: "column",
             gap: 14,
           }}
         >
-          {categoryOrder.map((category) => (
-            <CategoryScore
-              key={category}
-              label={checkCategoryLabels[category]}
-              score={result.scores[category]}
-            />
-          ))}
+          <div style={{ display: "flex", gap: 14 }}>
+            {categoryOrder.slice(0, 4).map((category) => (
+              <div key={category} style={{ display: "flex", flex: 1 }}>
+                <CategoryScore
+                  label={checkCategoryLabels[category]}
+                  score={result.scores[category]}
+                />
+              </div>
+            ))}
+          </div>
+          <div style={{ display: "flex", gap: 14 }}>
+            {categoryOrder.slice(4, 8).map((category) => (
+              <div key={category} style={{ display: "flex", flex: 1 }}>
+                <CategoryScore
+                  label={checkCategoryLabels[category]}
+                  score={result.scores[category]}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     ),

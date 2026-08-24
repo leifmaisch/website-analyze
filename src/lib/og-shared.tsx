@@ -35,6 +35,19 @@ export async function loadOgFonts() {
   ]
 }
 
+export async function loadOgBackgroundSrc() {
+  const buffer = await readFile(join(process.cwd(), "public/og-bg.png"))
+  return `data:image/png;base64,${buffer.toString("base64")}`
+}
+
+export async function loadOgAssets() {
+  const [fonts, backgroundSrc] = await Promise.all([
+    loadOgFonts(),
+    loadOgBackgroundSrc(),
+  ])
+  return { fonts, backgroundSrc }
+}
+
 export function scoreColor(score: number) {
   if (score >= 80) return ogColors.primary
   if (score >= 60) return ogColors.amber
@@ -46,32 +59,20 @@ export function truncateText(text: string, maxLength: number) {
   return `${text.slice(0, maxLength - 1)}…`
 }
 
-export function OgBackground() {
+export function OgBackground({ src }: { src: string }) {
   return (
-    <>
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 420,
-          background:
-            "radial-gradient(circle at 24% 0%, rgba(110, 231, 183, 0.18), transparent 62%)",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          right: 0,
-          width: 480,
-          height: 480,
-          background:
-            "radial-gradient(circle at 100% 100%, rgba(110, 231, 183, 0.08), transparent 68%)",
-        }}
-      />
-    </>
+    <img
+      src={src}
+      width={ogImageSize.width}
+      height={ogImageSize.height}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: ogImageSize.width,
+        height: ogImageSize.height,
+      }}
+    />
   )
 }
 

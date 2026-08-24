@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og"
 
 import {
-  loadOgFonts,
+  loadOgAssets,
   OgBackground,
   OgBrandMark,
   ogColors,
@@ -19,8 +19,10 @@ const tags = [
 
 export const ogImageAlt = "SiteAnalyze | Website audits made simple"
 
+export { ogImageContentType, ogImageSize } from "@/lib/og-shared"
+
 export async function createOgImage() {
-  const fonts = await loadOgFonts()
+  const { fonts, backgroundSrc } = await loadOgAssets()
 
   return new ImageResponse(
     (
@@ -38,7 +40,7 @@ export async function createOgImage() {
           fontFamily: "Rubik",
         }}
       >
-        <OgBackground />
+        <OgBackground src={backgroundSrc} />
 
         <div
           style={{

@@ -39,8 +39,6 @@ import { serviceProvider, siteName } from "@/lib/site-metadata"
 import {
   Hero,
   HeroActions,
-  HeroChip,
-  HeroChips,
   HeroDescription,
   HeroFrame,
   HeroIntro,
@@ -62,7 +60,7 @@ import {
   PricingPrice,
 } from "@/components/ui/pricing"
 import { TestimonialCard, Testimonials } from "@/components/ui/testimonials"
-import { HeroShowcaseContent } from "@/components/landing/hero-showcase"
+import { TopGlow } from "@/components/ui/top-glow"
 import { ResultGraphic } from "@/components/landing/result-graphic"
 import { SiteLogo } from "@/components/site-logo"
 import { SiteNavbar } from "@/components/site-navbar"
@@ -76,7 +74,8 @@ import { totalCheckCount } from "@/lib/scan-categories"
 
 export function LandingPage() {
   return (
-    <>
+    <div className="relative isolate">
+      <TopGlow />
       <SiteNavbar />
 
       <main>
@@ -98,16 +97,8 @@ export function LandingPage() {
                   See how it works
                 </Button>
               </HeroActions>
-              <HeroChips>
-                <HeroChip>{totalCheckCount} checks</HeroChip>
-                <HeroChip>Tech stack</HeroChip>
-                <HeroChip>Analytics</HeroChip>
-                <HeroChip>Font detection</HeroChip>
-              </HeroChips>
             </HeroIntro>
-            <HeroShowcase>
-              <HeroShowcaseContent />
-            </HeroShowcase>
+            <HeroShowcase />
           </HeroFrame>
         </Hero>
 
@@ -397,6 +388,6 @@ export function LandingPage() {
           </FooterBar>
         </FooterPanel>
       </Footer>
-    </>
+    </div>
   )
 }

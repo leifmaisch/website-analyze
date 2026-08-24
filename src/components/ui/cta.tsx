@@ -1,4 +1,5 @@
 import { squircle } from "@/lib/squircle"
+import { ctaTopGlowClass } from "@/lib/surface-glow"
 import { surfaceDepth } from "@/lib/surface-depth"
 import { cn } from "@/lib/utils"
 import { Section } from "@/components/ui/section"
@@ -26,7 +27,7 @@ function Cta({
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_0%,color-mix(in_srgb,var(--primary)_12%,transparent),transparent_70%)]"
+        className={cn("pointer-events-none absolute inset-0", ctaTopGlowClass)}
       />
       <div className="relative flex w-full flex-col items-center gap-6 sm:gap-8">
         {children}

@@ -158,7 +158,7 @@ function HeroShowcase({
       data-slot="hero-showcase"
       style={squircle}
       className={cn(
-        "relative mx-1 mb-1 min-h-[200px] overflow-hidden rounded-squircle-inner border border-border bg-card sm:min-h-[280px] md:min-h-[300px]",
+        "relative mx-1 mb-1 min-h-[200px] overflow-hidden rounded-squircle-inner border border-primary/35 bg-primary/5 sm:min-h-[280px] md:min-h-[300px]",
         surfaceDepth("md"),
         className
       )}
@@ -166,13 +166,9 @@ function HeroShowcase({
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_80%_at_50%_0%,color-mix(in_srgb,var(--primary)_10%,transparent),transparent_65%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_80%_at_50%_100%,color-mix(in_srgb,var(--primary)_12%,transparent),transparent_65%)]"
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-25 [background-image:linear-gradient(color-mix(in_srgb,var(--primary)_6%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--primary)_6%,transparent)_1px,transparent_1px)] [background-size:24px_24px]"
-      />
-      <div className="relative z-10 h-full w-full">{children}</div>
+      {children ? <div className="relative z-10 h-full w-full">{children}</div> : null}
     </div>
   )
 }

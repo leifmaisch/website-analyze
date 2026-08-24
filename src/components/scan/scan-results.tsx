@@ -252,6 +252,27 @@ function CopyLlmPromptButton({ result }: { result: ScanResult }) {
   )
 }
 
+function ShareResultsButton({ shareId }: { shareId: string }) {
+  const [copied, setCopied] = useState(false)
+
+  async function handleCopy() {
+    try {
+      const url = `${window.location.origin}/r/${shareId}`
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 2000)
+    } catch {
+      setCopied(false)
+    }
+  }
+
+  return (
+    <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
+      {copied ? "Link copied" : "Copy share link"}
+    </Button>
+  )
+}
+
 function CheckRow({ check }: { check: ScanCheck }) {
   return (
     <li
@@ -394,7 +415,10 @@ export function ScanResults({ result }: { result: ScanResult }) {
               <span>HTTP {result.statusCode}</span>
               <span className="hidden sm:inline">{scannedAt}</span>
             </div>
-            <div className="mt-3">
+            <div className="mt-3 flex flex-wrap gap-2">
+              {result.shareId ? (
+                <ShareResultsButton shareId={result.shareId} />
+              ) : null}
               <CopyLlmPromptButton result={result} />
             </div>
           </div>

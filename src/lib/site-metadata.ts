@@ -95,3 +95,27 @@ export function createScanMetadata(): Metadata {
     alternates: getSiteUrl() ? { canonical: "/scan" } : undefined,
   }
 }
+
+export function createSharedScanMetadata(
+  result: { domain: string; scores: { overall: number } },
+  shareId: string
+): Metadata {
+  const title = `${result.domain} audit`
+  const description = `Overall score ${result.scores.overall} for ${result.domain}. Full website audit with ${totalCheckCount} checks.`
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `/r/${shareId}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    alternates: getSiteUrl() ? { canonical: `/r/${shareId}` } : undefined,
+  }
+}

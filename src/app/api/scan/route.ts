@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 
+import { saveScanResult } from "@/lib/scans-store"
 import { scanWebsite } from "@/lib/scan"
 
 export async function POST(request: Request) {
@@ -15,11 +16,18 @@ export async function POST(request: Request) {
     }
 
     const result = await scanWebsite(domain)
-    return NextResponse.json(result)
+    const shareId = await saveScanResult(result)
+
+    return NextResponse.json({ ...result, shareId })
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Unable to scan this website"
 
-    return NextResponse.json({ error: message }, { status: 400 })
+    const status =
+      error instanceof Error && error.message === "DATABASE_URL is not set"
+        ? 503
+        : 400
+
+    return NextResponse.json({ error: message }, { status })
   }
 }

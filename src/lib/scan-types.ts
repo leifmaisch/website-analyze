@@ -61,4 +61,5 @@ export type ScanResult = {
   fonts: FontItem[]
   analytics: AnalyticsItem[]
   screenshots: ScanScreenshot[]
+  shareId?: string
 }

@@ -167,7 +167,7 @@ export function ScanPage() {
           ) : null}
 
           {result ? (
-            <div ref={resultsRef} className="mt-12 min-w-0 scroll-mt-24">
+            <div ref={resultsRef} className="mt-8 min-w-0 scroll-mt-24 sm:mt-12">
               <ScanResults result={result} />
             </div>
           ) : null}

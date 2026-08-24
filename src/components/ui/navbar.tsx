@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { ListIcon, XIcon } from "@phosphor-icons/react"
 
 import { iconWeight } from "@/components/shared"
@@ -36,6 +36,15 @@ function Navbar({
   sticky?: boolean
 }) {
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (!open) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [open])
 
   return (
     <NavbarContext value={{ open, setOpen, sticky }}>
@@ -112,7 +121,7 @@ function NavbarLinks({
     <nav
       data-slot="navbar-links"
       className={cn(
-        "hidden min-w-0 flex-1 items-center justify-center gap-1 md:flex",
+        "hidden min-w-0 flex-1 items-center justify-center gap-1 lg:flex",
         className
       )}
       {...props}
@@ -159,7 +168,7 @@ function NavbarActions({
   return (
     <div
       data-slot="navbar-actions"
-      className={cn("hidden shrink-0 items-center gap-2 md:flex", className)}
+      className={cn("hidden shrink-0 items-center gap-2 lg:flex", className)}
       {...props}
     >
       {children}
@@ -182,7 +191,7 @@ function NavbarMenuButton({
       onClick={() => setOpen(!open)}
       style={squircle}
       className={cn(
-        "ml-auto flex size-11 items-center justify-center rounded-squircle-md border border-border bg-muted/40 text-foreground md:hidden",
+        "ml-auto flex size-11 items-center justify-center rounded-squircle-md border border-border bg-muted/40 text-foreground lg:hidden",
         className
       )}
       {...props}
@@ -212,7 +221,7 @@ function NavbarMobileMenu({
       data-slot="navbar-mobile-menu"
       style={squircle}
       className={cn(
-        "mx-auto mt-3 w-full max-w-6xl rounded-squircle-lg border border-border bg-card/95 p-3 backdrop-blur-sm md:hidden",
+        "mx-auto mt-3 w-full max-w-6xl rounded-squircle-lg border border-border bg-card/95 p-3 backdrop-blur-sm lg:hidden",
         surfaceDepth("md"),
         className
       )}

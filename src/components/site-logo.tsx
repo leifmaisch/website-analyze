@@ -6,9 +6,9 @@ export function SiteLogo() {
       <Image
         src="/logo.png"
         alt=""
-        width={36}
-        height={36}
-        className="size-9 max-w-none"
+        width={32}
+        height={32}
+        className="size-8 max-w-none"
       />
     </span>
   )

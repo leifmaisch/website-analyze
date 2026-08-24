@@ -10,7 +10,7 @@ function Hero({ className, ...props }: HeroProps) {
     <Section
       data-slot="hero"
       className={cn(
-        "flex min-h-[calc(100svh-4.75rem)] flex-col justify-center py-6 sm:min-h-[calc(100svh-5.25rem)] sm:py-8 md:py-10",
+        "flex min-h-0 flex-col justify-center py-8 sm:py-10 md:min-h-[calc(100svh-5.25rem)] md:py-12",
         className
       )}
       {...props}

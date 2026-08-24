@@ -136,7 +136,11 @@ function FeatureOverviewCard({
             </div>
           ))}
         </div>
-        {cta ? <div className="relative">{cta}</div> : null}
+        {cta ? (
+          <div className="relative [&_[data-slot=button]]:w-full sm:[&_[data-slot=button]]:w-auto">
+            {cta}
+          </div>
+        ) : null}
       </div>
     </article>
   )
@@ -191,7 +195,7 @@ function Features({
           ) : null}
         </SectionHeader>
       ) : null}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         {children}
       </div>
     </Section>

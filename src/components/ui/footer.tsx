@@ -192,7 +192,7 @@ function FooterBar({
     <div
       data-slot="footer-bar"
       className={cn(
-        "flex flex-col gap-4 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between",
+        "flex flex-col gap-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between",
         className
       )}
       {...props}

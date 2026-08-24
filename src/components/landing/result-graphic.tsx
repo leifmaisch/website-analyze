@@ -219,6 +219,7 @@ function StatusPill({
     >
       {statusIcon(tone)}
       <span className="text-body text-sm font-medium tabular-nums">{count}</span>
+      <span className="text-caption capitalize sm:hidden">{tone}</span>
       <span className="text-caption hidden sm:inline">{label}</span>
     </div>
   )
@@ -255,7 +256,7 @@ function PreviewPlaceholder({ label }: { label: string }) {
         className="overflow-hidden rounded-squircle-md border border-border bg-background transition-colors group-hover:border-primary/30"
       >
         <div
-          className="aspect-[9/16] w-full bg-[linear-gradient(180deg,color-mix(in_srgb,var(--primary)_12%,transparent),color-mix(in_srgb,var(--muted)_80%,transparent))] sm:aspect-[4/3]"
+          className="aspect-[4/3] max-h-40 w-full bg-[linear-gradient(180deg,color-mix(in_srgb,var(--primary)_12%,transparent),color-mix(in_srgb,var(--muted)_80%,transparent))] sm:max-h-none"
         />
       </div>
       <p className="text-caption mt-2">{label}</p>
@@ -274,7 +275,7 @@ function StaticTab({
     <span
       style={squircle}
       className={cn(
-        "inline-flex min-w-0 flex-1 items-center justify-center gap-1 rounded-squircle-sm px-2 py-1.5 text-xs font-medium sm:px-3 sm:text-sm",
+        "inline-flex shrink-0 items-center justify-center gap-1 rounded-squircle-sm px-3 py-1.5 text-xs font-medium sm:text-sm",
         active
           ? "bg-background text-foreground shadow-sm"
           : "text-muted-foreground"
@@ -317,7 +318,7 @@ export function ResultGraphic() {
               <span className="hidden sm:inline">Just now</span>
             </div>
             <div className="mt-3">
-              <Button type="button" variant="outline" size="sm" disabled>
+              <Button type="button" variant="outline" size="sm" className="w-full sm:w-auto" disabled>
                 Copy LLM prompt
               </Button>
             </div>
@@ -340,7 +341,7 @@ export function ResultGraphic() {
         <div
           style={squircle}
           className={cn(
-            "flex w-full min-w-0 items-center gap-1 rounded-squircle-md border border-border/60 bg-muted p-1",
+            "flex w-full min-w-0 items-center gap-1 overflow-x-auto rounded-squircle-md border border-border/60 bg-muted p-1",
             surfaceDepth("md")
           )}
         >
@@ -423,7 +424,7 @@ export function ResultGraphic() {
               </div>
             </Panel>
 
-            <div className="flex flex-col gap-4">
+            <div className="hidden flex-col gap-4 md:flex">
               <Panel>
                 <div className="flex items-center justify-between gap-2">
                   <h3 className="text-heading text-lg">Preview</h3>

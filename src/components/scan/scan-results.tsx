@@ -104,7 +104,7 @@ function Panel({
     <div
       style={squircle}
       className={cn(
-        "rounded-squircle-lg border border-border bg-muted/20 p-5 sm:p-6",
+        "rounded-squircle-lg border border-border bg-muted/20 p-4 sm:p-6",
         className
       )}
     >
@@ -197,6 +197,7 @@ function StatusPill({
     >
       {statusIcon(tone)}
       <span className="text-body text-sm font-medium tabular-nums">{count}</span>
+      <span className="text-caption capitalize sm:hidden">{tone}</span>
       <span className="text-caption hidden sm:inline">{label}</span>
     </div>
   )
@@ -247,7 +248,7 @@ function CopyLlmPromptButton({ result }: { result: ScanResult }) {
   }
 
   return (
-    <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
+    <Button type="button" variant="outline" size="sm" className="w-full sm:w-auto" onClick={handleCopy}>
       {copied ? "Copied" : "Copy LLM prompt"}
     </Button>
   )
@@ -268,7 +269,7 @@ function ShareResultsButton({ shareId }: { shareId: string }) {
   }
 
   return (
-    <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
+    <Button type="button" variant="outline" size="sm" className="w-full sm:w-auto" onClick={handleCopy}>
       {copied ? "Link copied" : "Copy share link"}
     </Button>
   )
@@ -418,7 +419,7 @@ export function ScanResults({ result }: { result: ScanResult }) {
                 {scannedAt}
               </span>
             </div>
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
               {result.shareId ? (
                 <ShareResultsButton shareId={result.shareId} />
               ) : null}
@@ -442,11 +443,9 @@ export function ScanResults({ result }: { result: ScanResult }) {
       <div className="p-4 sm:p-6 lg:p-8">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <ScrollArea className="w-full">
-            <TabsList className="flex w-full min-w-0">
-              <TabsTrigger value="overview" className="min-w-0 flex-1 px-2 text-xs sm:px-3 sm:text-sm">
-                Overview
-              </TabsTrigger>
-              <TabsTrigger value="checks" className="min-w-0 flex-1 px-2 text-xs sm:px-3 sm:text-sm">
+            <TabsList className="w-max min-w-full">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="checks">
                 Checks
                 {issueCount > 0 ? (
                   <span className="text-caption ml-1 rounded-full bg-amber-500/20 px-1.5 py-0.5 text-amber-500 tabular-nums">
@@ -454,12 +453,8 @@ export function ScanResults({ result }: { result: ScanResult }) {
                   </span>
                 ) : null}
               </TabsTrigger>
-              <TabsTrigger value="preview" className="min-w-0 flex-1 px-2 text-xs sm:px-3 sm:text-sm">
-                Preview
-              </TabsTrigger>
-              <TabsTrigger value="stack" className="min-w-0 flex-1 px-2 text-xs sm:px-3 sm:text-sm">
-                Stack
-              </TabsTrigger>
+              <TabsTrigger value="preview">Preview</TabsTrigger>
+              <TabsTrigger value="stack">Stack</TabsTrigger>
             </TabsList>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
@@ -587,7 +582,7 @@ export function ScanResults({ result }: { result: ScanResult }) {
                             <img
                               src={screenshot.image}
                               alt={`${screenshot.label} preview`}
-                              className="aspect-[9/16] w-full object-cover object-top sm:aspect-[4/3]"
+                              className="aspect-[4/3] max-h-48 w-full object-cover object-top sm:max-h-none"
                             />
                           </div>
                           <p className="text-caption mt-2">{screenshot.label}</p>
@@ -937,7 +932,9 @@ export function ScanResults({ result }: { result: ScanResult }) {
                       style={squircle}
                       className="flex items-center justify-between gap-4 rounded-squircle-md border border-border bg-background/80 px-4 py-3"
                     >
-                      <span className="text-body font-medium">{font.name}</span>
+                      <span className="text-body min-w-0 flex-1 truncate font-medium">
+                        {font.name}
+                      </span>
                       <span className="text-caption shrink-0">
                         {fontSourceLabels[font.source]}
                       </span>

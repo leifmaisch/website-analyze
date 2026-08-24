@@ -94,6 +94,7 @@ function StatusPill({
     >
       {statusIcon(tone)}
       <span className="text-body text-xs font-medium tabular-nums">{count}</span>
+      <span className="text-caption capitalize sm:hidden">{tone}</span>
       <span className="text-caption hidden text-xs sm:inline">{label}</span>
     </div>
   )
@@ -194,8 +195,8 @@ export function HeroGraphic() {
                   style={squircle}
                   className="rounded-squircle-sm border border-border/60 bg-background/60 px-2.5 py-2 sm:px-3 sm:py-2.5"
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-caption truncate">
+                  <div className="flex items-center justify-between gap-1.5 sm:gap-2">
+                    <span className="text-caption text-[11px] leading-tight sm:text-xs">
                       {checkCategoryLabels[category]}
                     </span>
                     <span

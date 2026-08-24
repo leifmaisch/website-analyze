@@ -71,7 +71,7 @@ function TestimonialCard({
         )}
         <div className="min-w-0">
           <cite className="not-italic text-title text-sm">{name}</cite>
-          <p className="truncate text-xs text-muted-foreground">{role}</p>
+          <p className="line-clamp-2 text-xs text-muted-foreground">{role}</p>
         </div>
       </footer>
     </article>

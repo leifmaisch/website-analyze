@@ -209,7 +209,7 @@ function PricingScribbleOverlay() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
+      className="pointer-events-none absolute inset-0 z-10 overflow-hidden max-sm:hidden"
     >
       <svg
         className="absolute inset-0 size-full text-foreground/22"
@@ -328,7 +328,7 @@ function Pricing({
         <div
           className={cn(
             "grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3",
-            scribble && "opacity-35 select-none"
+            scribble && "max-sm:opacity-100 sm:opacity-35 select-none"
           )}
         >
           {children}

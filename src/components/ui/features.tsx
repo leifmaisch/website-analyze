@@ -64,7 +64,7 @@ function FeatureCard({
         <div className="min-w-0">
           <h3 className="text-title">{title}</h3>
           {description ? (
-            <p className="mt-1 line-clamp-2 text-description">{description}</p>
+            <p className="mt-1 line-clamp-none text-description sm:line-clamp-2">{description}</p>
           ) : null}
         </div>
         {showArrow ? (

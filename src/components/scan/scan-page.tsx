@@ -105,7 +105,7 @@ export function ScanPage() {
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="domain">Website domain</Label>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                   <Input
                     id="domain"
                     name="domain"
@@ -117,16 +117,18 @@ export function ScanPage() {
                     onChange={(event) => setDomain(event.target.value)}
                     disabled={loading}
                     required
-                    className="min-w-0 flex-1"
+                    className="min-w-0 w-full flex-1"
                   />
                   <Button
                     type="submit"
                     shape="squircle"
-                    size="icon-lg"
+                    size="lg"
+                    className="w-full shrink-0 sm:w-auto"
                     disabled={loading || !domain.trim()}
                     aria-label={loading ? "Scanning website" : "Check website"}
                   >
                     <MagnifyingGlassIcon className="size-4" />
+                    <span>Scan</span>
                   </Button>
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
@@ -138,7 +140,7 @@ export function ScanPage() {
                       disabled={loading}
                       onClick={() => handleExampleClick(example)}
                       style={squircle}
-                      className="rounded-full border border-border bg-muted/30 px-3 py-1 text-label transition-colors hover:bg-muted/60 disabled:opacity-50"
+                      className="min-h-11 rounded-full border border-border bg-muted/30 px-3 py-2.5 text-label transition-colors hover:bg-muted/60 disabled:opacity-50"
                     >
                       {example}
                     </button>
@@ -157,7 +159,7 @@ export function ScanPage() {
           ) : null}
 
           {result ? (
-            <div ref={resultsRef} className="mt-12 scroll-mt-24">
+            <div ref={resultsRef} className="mt-12 min-w-0 scroll-mt-24">
               <ScanResults result={result} />
             </div>
           ) : null}

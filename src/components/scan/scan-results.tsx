@@ -196,7 +196,7 @@ function StatusPill({
     >
       {statusIcon(tone)}
       <span className="text-body text-sm font-medium tabular-nums">{count}</span>
-      <span className="text-caption">{label}</span>
+      <span className="text-caption hidden sm:inline">{label}</span>
     </div>
   )
 }
@@ -218,7 +218,7 @@ function FilterPill({
       onClick={onClick}
       style={squircle}
       className={cn(
-        "rounded-squircle-md border px-3 py-1.5 text-sm transition-colors",
+        "rounded-squircle-md border px-3 py-2.5 text-sm transition-colors min-h-11",
         active
           ? "border-primary/40 bg-primary text-primary-foreground"
           : "border-border bg-background/60 text-muted-foreground hover:text-foreground"
@@ -383,9 +383,9 @@ export function ScanResults({ result }: { result: ScanResult }) {
               {result.domain}
             </h2>
             <div className="text-description mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-              <span className="inline-flex items-center gap-1.5 truncate">
+              <span className="inline-flex min-w-0 max-w-full items-center gap-1.5">
                 <GlobeIcon weight={iconWeight} className="size-3.5 shrink-0" />
-                {result.url}
+                <span className="truncate">{result.url}</span>
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <ClockIcon weight={iconWeight} className="size-3.5 shrink-0" />
@@ -399,13 +399,15 @@ export function ScanResults({ result }: { result: ScanResult }) {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 sm:gap-5">
-            <div className="flex flex-wrap gap-2">
+          <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:gap-5 lg:w-auto">
+            <div className="flex flex-wrap items-center gap-2">
               <StatusPill label="passed" count={passCount} tone="pass" />
               <StatusPill label="warnings" count={warnCount} tone="warn" />
               <StatusPill label="failed" count={failCount} tone="fail" />
             </div>
-            <ScoreRing score={result.scores.overall} />
+            <div className="flex justify-center sm:justify-start">
+              <ScoreRing score={result.scores.overall} />
+            </div>
           </div>
         </div>
       </div>
@@ -413,11 +415,11 @@ export function ScanResults({ result }: { result: ScanResult }) {
       <div className="p-4 sm:p-6 lg:p-8">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <ScrollArea className="w-full">
-            <TabsList className="inline-flex w-max min-w-full">
-              <TabsTrigger value="overview" className="shrink-0 px-3 sm:flex-1">
+            <TabsList className="flex w-full min-w-0">
+              <TabsTrigger value="overview" className="min-w-0 flex-1 px-2 text-xs sm:px-3 sm:text-sm">
                 Overview
               </TabsTrigger>
-              <TabsTrigger value="checks" className="shrink-0 px-3 sm:flex-1">
+              <TabsTrigger value="checks" className="min-w-0 flex-1 px-2 text-xs sm:px-3 sm:text-sm">
                 Checks
                 {issueCount > 0 ? (
                   <span className="text-caption ml-1 rounded-full bg-amber-500/20 px-1.5 py-0.5 text-amber-500 tabular-nums">
@@ -425,10 +427,10 @@ export function ScanResults({ result }: { result: ScanResult }) {
                   </span>
                 ) : null}
               </TabsTrigger>
-              <TabsTrigger value="preview" className="shrink-0 px-3 sm:flex-1">
+              <TabsTrigger value="preview" className="min-w-0 flex-1 px-2 text-xs sm:px-3 sm:text-sm">
                 Preview
               </TabsTrigger>
-              <TabsTrigger value="stack" className="shrink-0 px-3 sm:flex-1">
+              <TabsTrigger value="stack" className="min-w-0 flex-1 px-2 text-xs sm:px-3 sm:text-sm">
                 Stack
               </TabsTrigger>
             </TabsList>
@@ -543,7 +545,7 @@ export function ScanResults({ result }: { result: ScanResult }) {
                     ) : null}
                   </div>
                   {result.screenshots.length > 0 ? (
-                    <div className="mt-4 grid grid-cols-2 gap-3">
+                    <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                       {result.screenshots.map((screenshot) => (
                         <button
                           key={screenshot.viewport}

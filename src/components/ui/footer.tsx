@@ -146,7 +146,7 @@ function FooterLink({
         data-slot="footer-link"
         data-disabled
         className={cn(
-          "w-fit text-sm text-muted-foreground/40 cursor-not-allowed",
+          "block py-2.5 text-sm text-muted-foreground/40",
           className
         )}
       >
@@ -160,7 +160,7 @@ function FooterLink({
       href={href}
       data-slot="footer-link"
       className={cn(
-        "w-fit text-sm text-muted-foreground transition-colors hover:text-foreground",
+        "block py-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground",
         className
       )}
     >

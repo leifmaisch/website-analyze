@@ -167,11 +167,19 @@
   html {
     @apply font-sans;
     font-family: var(--font-sans);
-    scrollbar-gutter: stable;
+    overflow-x: clip;
   }
   body {
     @apply bg-background text-foreground;
-    scrollbar-gutter: stable;
+    min-width: 0;
+    overflow-x: clip;
+  }
+  @media (max-width: 639px) {
+    :root {
+      --type-body: 1rem;
+      --type-label: 0.8125rem;
+      --type-caption: 0.8125rem;
+    }
   }
 }
 

@@ -110,7 +110,7 @@ function HeroActions({
     <div
       data-slot="hero-actions"
       className={cn(
-        "flex flex-wrap items-center justify-center gap-3",
+        "flex flex-wrap items-center justify-center gap-3 [&_[data-slot=button]]:w-full [&_[data-slot=button]]:sm:w-auto",
         className
       )}
       {...props}

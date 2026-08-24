@@ -16,7 +16,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${leguanFontVariables} dark h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background">{children}</body>
+      <body className="flex min-h-full min-w-0 flex-col overflow-x-clip bg-background">
+        {children}
+      </body>
     </html>
   )
 }

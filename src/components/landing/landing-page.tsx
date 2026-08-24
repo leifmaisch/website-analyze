@@ -127,6 +127,7 @@ export function LandingPage() {
         >
           <FeatureCard
             large
+            className="hidden lg:flex"
             title={`${totalCheckCount}-point website audit`}
             description="Eight scored categories in one pass, from performance and SEO to security and mobile."
             visual={
@@ -136,6 +137,7 @@ export function LandingPage() {
             }
           />
           <FeatureCard
+            className="hidden lg:flex"
             title="Performance"
             description="Response time, compression, page size, cache headers, lazy images, and render-blocking scripts."
             visual={
@@ -145,6 +147,7 @@ export function LandingPage() {
             }
           />
           <FeatureCard
+            className="hidden lg:flex"
             title="SEO"
             description="Titles, meta tags, Open Graph, structured data, sitemaps, hreflang, and internal link health."
             visual={
@@ -154,6 +157,7 @@ export function LandingPage() {
             }
           />
           <FeatureCard
+            className="hidden lg:flex"
             title="Security"
             description="HTTPS, SSL expiry, security headers, mixed content, cookie flags, SRI, and security.txt."
             visual={
@@ -163,6 +167,7 @@ export function LandingPage() {
             }
           />
           <FeatureCard
+            className="hidden lg:flex"
             title="Accessibility and mobile"
             description="Skip links, landmarks, form labels, viewport, web manifest, and theme color."
             visual={
@@ -175,6 +180,7 @@ export function LandingPage() {
             }
           />
           <FeatureCard
+            className="hidden lg:flex"
             title="Privacy and content"
             description="Third-party domains, privacy policy links, readability, broken images, and placeholder copy."
             visual={
@@ -184,6 +190,7 @@ export function LandingPage() {
             }
           />
           <FeatureCard
+            className="hidden lg:flex"
             title="Tech stack and analytics"
             description="Detect frameworks, UI libraries, Tailwind, shadcn, Google Analytics, ad pixels, and more."
             visual={

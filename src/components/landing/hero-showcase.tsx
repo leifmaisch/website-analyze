@@ -17,34 +17,34 @@ export function HeroShowcaseContent() {
         </div>
         <span className="text-caption">{totalCheckCount} checks</span>
       </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-squircle-md border border-border bg-background/80 p-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="rounded-squircle-md border border-border bg-background/80 p-3 sm:p-4">
           <div className="mb-2 flex items-center gap-2 text-label">
-            <ChartLineUpIcon className="size-4 text-primary" />
-            Overall
+            <ChartLineUpIcon className="size-4 shrink-0 text-primary" />
+            <span className="truncate">Overall</span>
           </div>
-          <p className="text-stat-value">88</p>
+          <p className="text-xl font-semibold tabular-nums sm:text-stat-value">88</p>
         </div>
-        <div className="rounded-squircle-md border border-border bg-background/80 p-4">
+        <div className="rounded-squircle-md border border-border bg-background/80 p-3 sm:p-4">
           <div className="mb-2 flex items-center gap-2 text-label">
-            <GaugeIcon className="size-4 text-primary" />
-            Performance
+            <GaugeIcon className="size-4 shrink-0 text-primary" />
+            <span className="truncate">Performance</span>
           </div>
-          <p className="text-stat-value">93</p>
+          <p className="text-xl font-semibold tabular-nums sm:text-stat-value">93</p>
         </div>
-        <div className="rounded-squircle-md border border-border bg-background/80 p-4">
+        <div className="rounded-squircle-md border border-border bg-background/80 p-3 sm:p-4">
           <div className="mb-2 flex items-center gap-2 text-label">
-            <MagnifyingGlassIcon className="size-4 text-primary" />
-            SEO
+            <MagnifyingGlassIcon className="size-4 shrink-0 text-primary" />
+            <span className="truncate">SEO</span>
           </div>
-          <p className="text-stat-value">83</p>
+          <p className="text-xl font-semibold tabular-nums sm:text-stat-value">83</p>
         </div>
-        <div className="rounded-squircle-md border border-border bg-background/80 p-4">
+        <div className="rounded-squircle-md border border-border bg-background/80 p-3 sm:p-4">
           <div className="mb-2 flex items-center gap-2 text-label">
-            <ShieldCheckIcon className="size-4 text-primary" />
-            Security
+            <ShieldCheckIcon className="size-4 shrink-0 text-primary" />
+            <span className="truncate">Security</span>
           </div>
-          <p className="text-stat-value">84</p>
+          <p className="text-xl font-semibold tabular-nums sm:text-stat-value">84</p>
         </div>
       </div>
     </div>

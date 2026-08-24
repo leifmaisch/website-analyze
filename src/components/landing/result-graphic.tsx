@@ -219,7 +219,7 @@ function StatusPill({
     >
       {statusIcon(tone)}
       <span className="text-body text-sm font-medium tabular-nums">{count}</span>
-      <span className="text-caption">{label}</span>
+      <span className="text-caption hidden sm:inline">{label}</span>
     </div>
   )
 }
@@ -274,7 +274,7 @@ function StaticTab({
     <span
       style={squircle}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center gap-1.5 rounded-squircle-sm px-2.5 py-1.5 text-sm font-medium sm:px-3 sm:flex-1",
+        "inline-flex min-w-0 flex-1 items-center justify-center gap-1 rounded-squircle-sm px-2 py-1.5 text-xs font-medium sm:px-3 sm:text-sm",
         active
           ? "bg-background text-foreground shadow-sm"
           : "text-muted-foreground"
@@ -305,9 +305,9 @@ export function ResultGraphic() {
               {sampleDomain}
             </h2>
             <div className="text-description mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-              <span className="inline-flex items-center gap-1.5 truncate">
+              <span className="inline-flex min-w-0 max-w-full items-center gap-1.5">
                 <GlobeIcon weight={iconWeight} className="size-3.5 shrink-0" />
-                {sampleUrl}
+                <span className="truncate">{sampleUrl}</span>
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <ClockIcon weight={iconWeight} className="size-3.5 shrink-0" />
@@ -323,13 +323,15 @@ export function ResultGraphic() {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 sm:gap-5">
-            <div className="flex flex-wrap gap-2">
+          <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:gap-5 lg:w-auto">
+            <div className="flex flex-wrap items-center gap-2">
               <StatusPill label="passed" count={samplePassCount} tone="pass" />
               <StatusPill label="warnings" count={sampleWarnCount} tone="warn" />
               <StatusPill label="failed" count={sampleFailCount} tone="fail" />
             </div>
-            <ScoreRing score={sampleOverall} />
+            <div className="flex justify-center sm:justify-start">
+              <ScoreRing score={sampleOverall} />
+            </div>
           </div>
         </div>
       </div>
@@ -338,7 +340,7 @@ export function ResultGraphic() {
         <div
           style={squircle}
           className={cn(
-            "inline-flex w-full max-w-full items-center gap-1 rounded-squircle-md border border-border/60 bg-muted p-1",
+            "flex w-full min-w-0 items-center gap-1 rounded-squircle-md border border-border/60 bg-muted p-1",
             surfaceDepth("md")
           )}
         >
@@ -427,7 +429,7 @@ export function ResultGraphic() {
                   <h3 className="text-heading text-lg">Preview</h3>
                   <span className="text-label text-primary">Full size</span>
                 </div>
-                <div className="mt-4 grid grid-cols-2 gap-3">
+                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <PreviewPlaceholder label="Desktop" />
                   <PreviewPlaceholder label="Mobile" />
                 </div>

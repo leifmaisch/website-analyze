@@ -95,7 +95,7 @@ function CtaActions({
     <div
       data-slot="cta-actions"
       className={cn(
-        "flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center",
+        "flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center [&_[data-slot=button]]:w-full [&_[data-slot=button]]:sm:w-auto",
         className
       )}
       {...props}

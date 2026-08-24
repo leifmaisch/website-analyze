@@ -51,6 +51,7 @@ function runBrowserCapture(url: string): Promise<BrowserCaptureResult> {
     })
 
     let stdout = ""
+    let stderr = ""
     let settled = false
 
     const finish = (result: BrowserCaptureResult) => {
@@ -69,11 +70,21 @@ function runBrowserCapture(url: string): Promise<BrowserCaptureResult> {
       stdout += chunk.toString()
     })
 
-    child.on("error", () => {
+    child.stderr.on("data", (chunk: Buffer) => {
+      stderr += chunk.toString()
+    })
+
+    child.on("error", (error) => {
+      console.error("browser capture spawn failed:", error)
       finish({ screenshots: [], responsive: emptyResponsive })
     })
 
-    child.on("close", () => {
+    child.on("close", (code) => {
+      if (code !== 0 || !stdout.trim()) {
+        if (stderr.trim()) {
+          console.error("browser capture failed:", stderr.trim())
+        }
+      }
       try {
         const parsed = JSON.parse(stdout) as BrowserCaptureResult
         finish({

@@ -26,12 +26,12 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV HOSTNAME=0.0.0.0
 ENV PORT=3000
-ENV NODE_PATH=/app/playwright-lib
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
-COPY --from=playwright-runtime /playwright/node_modules ./playwright-lib
+COPY --from=playwright-runtime /playwright/node_modules/playwright ./node_modules/playwright
+COPY --from=playwright-runtime /playwright/node_modules/playwright-core ./node_modules/playwright-core
 
 RUN chown -R pwuser:pwuser /app
 USER pwuser

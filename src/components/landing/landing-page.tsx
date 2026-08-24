@@ -7,7 +7,6 @@ import {
   EyeIcon,
   GlobeIcon,
   LightningIcon,
-  ListChecksIcon,
   LockKeyIcon,
   ShieldCheckIcon,
 } from "@phosphor-icons/react/dist/ssr"
@@ -121,17 +120,6 @@ export function LandingPage() {
           title="Everything you need to improve a site"
           description={`${totalCheckCount} checks across 8 categories, plus tech stack, analytics, and font detection.`}
         >
-          <FeatureCard
-            large
-            className="hidden lg:flex"
-            title={`${totalCheckCount}-point website audit`}
-            description="Eight scored categories in one pass, from performance and SEO to security and mobile."
-            visual={
-              <div className="flex h-full items-center justify-center p-6">
-                <ListChecksIcon className="size-16 text-primary/80" weight="duotone" />
-              </div>
-            }
-          />
           <FeatureCard
             className="hidden lg:flex"
             title="Performance"

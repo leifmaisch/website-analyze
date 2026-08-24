@@ -40,12 +40,18 @@ export async function loadOgBackgroundSrc() {
   return `data:image/png;base64,${buffer.toString("base64")}`
 }
 
+export async function loadOgLogoSrc() {
+  const buffer = await readFile(join(process.cwd(), "public/logo.png"))
+  return `data:image/png;base64,${buffer.toString("base64")}`
+}
+
 export async function loadOgAssets() {
-  const [fonts, backgroundSrc] = await Promise.all([
+  const [fonts, backgroundSrc, logoSrc] = await Promise.all([
     loadOgFonts(),
     loadOgBackgroundSrc(),
+    loadOgLogoSrc(),
   ])
-  return { fonts, backgroundSrc }
+  return { fonts, backgroundSrc, logoSrc }
 }
 
 export function scoreColor(score: number) {
@@ -76,35 +82,16 @@ export function OgBackground({ src }: { src: string }) {
   )
 }
 
-export function OgBrandMark({ size = 72 }: { size?: number }) {
-  const iconSize = Math.round(size * 0.5)
-
+export function OgBrandMark({ src, size = 72 }: { src: string; size?: number }) {
   return (
-    <div
+    <img
+      src={src}
+      width={size}
+      height={size}
       style={{
-        display: "flex",
         width: size,
         height: size,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: Math.round(size * 0.25),
-        backgroundColor: ogColors.primary,
       }}
-    >
-      <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none">
-        <circle
-          cx="12"
-          cy="12"
-          r="9"
-          stroke={ogColors.primaryForeground}
-          strokeWidth="2"
-        />
-        <path
-          d="M3 12h18M12 3c2.5 2.5 4 5.5 4 9s-1.5 6.5-4 9M12 3c-2.5 2.5-4 5.5-4 9s1.5 6.5 4 9"
-          stroke={ogColors.primaryForeground}
-          strokeWidth="2"
-        />
-      </svg>
-    </div>
+    />
   )
 }

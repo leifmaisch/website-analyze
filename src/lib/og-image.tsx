@@ -23,7 +23,7 @@ export const ogImageAlt = `${siteName} | ${siteTagline}`
 export { ogImageContentType, ogImageSize } from "@/lib/og-shared"
 
 export async function createOgImage() {
-  const { fonts, backgroundSrc } = await loadOgAssets()
+  const { fonts, backgroundSrc, logoSrc } = await loadOgAssets()
 
   return new ImageResponse(
     (
@@ -52,7 +52,7 @@ export async function createOgImage() {
             marginBottom: 36,
           }}
         >
-          <OgBrandMark />
+          <OgBrandMark src={logoSrc} />
           <span
             style={{
               fontSize: 52,

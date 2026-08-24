@@ -38,7 +38,6 @@ import { serviceProvider, siteName } from "@/lib/site-metadata"
 import {
   Hero,
   HeroActions,
-  HeroDescription,
   HeroFrame,
   HeroIntro,
   HeroShowcase,
@@ -82,11 +81,6 @@ export function LandingPage() {
           <HeroFrame>
             <HeroIntro>
               <HeroTitle>Understand every site in minutes</HeroTitle>
-              <HeroDescription>
-                Run {totalCheckCount} automated checks across performance, SEO,
-                security, accessibility, privacy, content, infrastructure, and
-                mobile. Detect tech stack, analytics, and fonts in one scan.
-              </HeroDescription>
               <HeroActions>
                 <Button size="lg" render={<Link href="/scan" />}>
                   Analyze a site

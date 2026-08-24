@@ -99,7 +99,10 @@ function HeroDescription({
   return (
     <p
       data-slot="hero-description"
-      className={cn("max-w-2xl text-balance text-description sm:text-lg", className)}
+      className={cn(
+        "mx-auto w-full max-w-xl text-pretty text-description sm:text-lg",
+        className
+      )}
       {...props}
     />
   )

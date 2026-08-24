@@ -1,14 +1,9 @@
-import type { Metadata } from "next"
-
 import { leguanFontVariables } from "@/lib/fonts"
+import { createSiteMetadata } from "@/lib/site-metadata"
 
 import "./globals.css"
 
-export const metadata: Metadata = {
-  title: "SiteAnalyze | Website audits made simple",
-  description:
-    "Audit performance, SEO, accessibility, and security from one dashboard.",
-}
+export const metadata = createSiteMetadata()
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

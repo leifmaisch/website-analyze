@@ -33,7 +33,9 @@ import {
   FooterLink,
   FooterMain,
   FooterPanel,
+  FooterServiceBy,
 } from "@/components/ui/footer"
+import { serviceProvider } from "@/lib/site-metadata"
 import {
   Hero,
   HeroActions,
@@ -382,6 +384,10 @@ export function LandingPage() {
           <FooterDivider />
           <FooterBar>
             <FooterCopyright name="SiteAnalyze" />
+            <FooterServiceBy
+              name={serviceProvider.name}
+              href={serviceProvider.url}
+            />
             <FooterLegal
               links={[
                 { label: "Privacy", href: "#", disabled: true },

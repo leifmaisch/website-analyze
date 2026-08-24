@@ -7,6 +7,13 @@ import { MagnifyingGlassIcon } from "@phosphor-icons/react"
 import { ScanError, ScanLoading, ScanResults } from "@/components/scan/scan-results"
 import { SiteNavbar } from "@/components/site-navbar"
 import { Button } from "@/components/ui/button"
+import {
+  Footer,
+  FooterBar,
+  FooterCopyright,
+  FooterPanel,
+  FooterServiceBy,
+} from "@/components/ui/footer"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -17,6 +24,7 @@ import {
 } from "@/components/ui/section"
 import type { ScanResult } from "@/lib/scan-types"
 import { totalCheckCount } from "@/lib/scan-categories"
+import { serviceProvider } from "@/lib/site-metadata"
 import { squircle } from "@/lib/squircle"
 import { surfaceDepth } from "@/lib/surface-depth"
 import { cn } from "@/lib/utils"
@@ -165,6 +173,18 @@ export function ScanPage() {
           ) : null}
         </Section>
       </main>
+
+      <Footer>
+        <FooterPanel>
+          <FooterBar>
+            <FooterCopyright name="SiteAnalyze" />
+            <FooterServiceBy
+              name={serviceProvider.name}
+              href={serviceProvider.url}
+            />
+          </FooterBar>
+        </FooterPanel>
+      </Footer>
     </>
   )
 }

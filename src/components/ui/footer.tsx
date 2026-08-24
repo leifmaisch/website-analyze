@@ -225,6 +225,33 @@ function FooterCopyright({
   )
 }
 
+function FooterServiceBy({
+  name,
+  href,
+  className,
+}: {
+  name: string
+  href: string
+  className?: string
+}) {
+  return (
+    <p
+      data-slot="footer-service-by"
+      className={cn("text-muted-foreground text-xs", className)}
+    >
+      Service by{" "}
+      <Link
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-muted-foreground transition-colors hover:text-foreground"
+      >
+        {name}
+      </Link>
+    </p>
+  )
+}
+
 type FooterLegalProps = React.ComponentProps<"div"> & {
   links?: FooterLinkItem[]
 }
@@ -266,5 +293,6 @@ export {
   FooterLink,
   FooterMain,
   FooterPanel,
+  FooterServiceBy,
   type FooterLinkItem,
 }

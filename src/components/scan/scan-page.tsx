@@ -29,7 +29,7 @@ import { squircle } from "@/lib/squircle"
 import { surfaceDepth } from "@/lib/surface-depth"
 import { cn } from "@/lib/utils"
 
-const exampleDomains = ["netcha.se", "reachase.com", "steam-friends.com"]
+const exampleDomains = ["netcha.se", "reachase.com", "scan.netcha.se"]
 
 export function ScanPage() {
   const searchParams = useSearchParams()

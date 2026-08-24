@@ -147,6 +147,10 @@ export function formatCheckForDisplay(check: ScanCheck): ScanCheck {
   return { ...check, label }
 }
 
+export function isInformationalCheck(check: ScanCheck): boolean {
+  return check.status === "info"
+}
+
 export function formatChecksForDisplay(checks: ScanCheck[]): ScanCheck[] {
   return checks.map(formatCheckForDisplay)
 }

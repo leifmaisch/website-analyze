@@ -5,13 +5,17 @@ import type { CheckCategory } from "@/lib/scan-categories"
 
 export type { CheckCategory } from "@/lib/scan-categories"
 
-export type CheckStatus = "pass" | "warn" | "fail"
+export type CheckStatus = "pass" | "warn" | "fail" | "info"
 
 export type ScanCheck = {
   id: string
   label: string
   status: CheckStatus
   detail?: string
+}
+
+export function isActionableCheck(check: ScanCheck): boolean {
+  return check.status === "warn" || check.status === "fail"
 }
 
 export type ScanScores = {

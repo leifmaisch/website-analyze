@@ -6,6 +6,7 @@ import {
   CheckCircleIcon,
   ClockIcon,
   GlobeIcon,
+  InfoIcon,
   QuestionIcon,
   WarningCircleIcon,
   XCircleIcon,
@@ -28,6 +29,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import type { CheckCategory, ScanCheck, ScanResult } from "@/lib/scan-types"
+import { isActionableCheck } from "@/lib/scan-types"
 import { checkCategoryLabels, getCheckCategory } from "@/lib/scan-categories"
 import {
   analyticsKindLabels,
@@ -61,10 +63,11 @@ const categoryOrder: CheckCategory[] = [
 const statusPriority: Record<ScanCheck["status"], number> = {
   fail: 0,
   warn: 1,
-  pass: 2,
+  info: 2,
+  pass: 3,
 }
 
-type CheckFilter = "all" | "issues" | "pass"
+type CheckFilter = "all" | "issues" | "info" | "pass"
 
 function scoreTone(score: number) {
   if (score >= 80) return "text-primary"
@@ -93,6 +96,15 @@ function statusIcon(status: ScanCheck["status"], className?: string) {
       <WarningCircleIcon
         weight={iconWeight}
         className={cn("size-4 shrink-0 text-amber-500", className)}
+      />
+    )
+  }
+
+  if (status === "info") {
+    return (
+      <InfoIcon
+        weight={iconWeight}
+        className={cn("size-4 shrink-0 text-sky-400", className)}
       />
     )
   }
@@ -191,12 +203,13 @@ function StatusPill({
 }: {
   label: string
   count: number
-  tone: "pass" | "warn" | "fail"
+  tone: "pass" | "warn" | "fail" | "info"
 }) {
   const tones = {
     pass: "border-primary/30 bg-primary/10 text-primary",
     warn: "border-amber-500/30 bg-amber-500/10 text-amber-500",
     fail: "border-red-500/30 bg-red-500/10 text-red-400",
+    info: "border-sky-400/30 bg-sky-400/10 text-sky-400",
   }
 
   return (
@@ -367,7 +380,11 @@ function groupAnalyticsByKind(result: ScanResult) {
 
 function filterChecks(checks: ScanCheck[], filter: CheckFilter) {
   if (filter === "issues") {
-    return checks.filter((check) => check.status !== "pass")
+    return checks.filter((check) => isActionableCheck(check))
+  }
+
+  if (filter === "info") {
+    return checks.filter((check) => check.status === "info")
   }
 
   if (filter === "pass") {
@@ -378,7 +395,7 @@ function filterChecks(checks: ScanCheck[], filter: CheckFilter) {
 }
 
 function categoryIssueCount(checks: ScanCheck[]) {
-  return checks.filter((check) => check.status !== "pass").length
+  return checks.filter((check) => isActionableCheck(check)).length
 }
 
 export function ScanResults({ result }: { result: ScanResult }) {
@@ -396,12 +413,13 @@ export function ScanResults({ result }: { result: ScanResult }) {
   const passCount = result.checks.filter((check) => check.status === "pass").length
   const warnCount = result.checks.filter((check) => check.status === "warn").length
   const failCount = result.checks.filter((check) => check.status === "fail").length
+  const infoCount = result.checks.filter((check) => check.status === "info").length
   const issueCount = warnCount + failCount
 
   const topIssues = useMemo(
     () =>
       [...result.checks]
-        .filter((check) => check.status !== "pass")
+        .filter((check) => isActionableCheck(check))
         .sort((a, b) => statusPriority[a.status] - statusPriority[b.status])
         .slice(0, 6),
     [result.checks]
@@ -461,6 +479,9 @@ export function ScanResults({ result }: { result: ScanResult }) {
           <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:gap-5 lg:w-auto">
             <div className="flex flex-wrap items-center gap-2">
               <StatusPill label="passed" count={passCount} tone="pass" />
+              {infoCount > 0 ? (
+                <StatusPill label="info" count={infoCount} tone="info" />
+              ) : null}
               <StatusPill label="warnings" count={warnCount} tone="warn" />
               <StatusPill label="failed" count={failCount} tone="fail" />
             </div>
@@ -769,6 +790,14 @@ export function ScanResults({ result }: { result: ScanResult }) {
                 count={issueCount}
                 onClick={() => setCheckFilter("issues")}
               />
+              {infoCount > 0 ? (
+                <FilterPill
+                  active={checkFilter === "info"}
+                  label="Info"
+                  count={infoCount}
+                  onClick={() => setCheckFilter("info")}
+                />
+              ) : null}
               <FilterPill
                 active={checkFilter === "all"}
                 label="All"
@@ -795,8 +824,10 @@ export function ScanResults({ result }: { result: ScanResult }) {
                 const isOpen =
                   openCategory === category ||
                   (openCategory === null &&
-                    categoryIssueCount(checkGroups[category]) > 0 &&
-                    checkFilter !== "pass")
+                    filterChecks(checkGroups[category], checkFilter).length > 0 &&
+                    checkFilter !== "pass" &&
+                    (checkFilter !== "all" ||
+                      checkGroups[category].some((check) => check.status !== "pass")))
 
                 return (
                   <details

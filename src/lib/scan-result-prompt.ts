@@ -22,6 +22,7 @@ const categoryOrder: CheckCategory[] = [
 function statusLabel(status: ScanCheck["status"]) {
   if (status === "pass") return "PASS"
   if (status === "warn") return "WARN"
+  if (status === "info") return "INFO"
   return "FAIL"
 }
 
@@ -49,6 +50,7 @@ export function formatScanResultForLlm(result: ScanResult): string {
   const passCount = result.checks.filter((c) => c.status === "pass").length
   const warnCount = result.checks.filter((c) => c.status === "warn").length
   const failCount = result.checks.filter((c) => c.status === "fail").length
+  const infoCount = result.checks.filter((c) => c.status === "info").length
   const scannedAt = new Date(result.scannedAt).toISOString()
 
   const lines: string[] = [
@@ -75,6 +77,7 @@ export function formatScanResultForLlm(result: ScanResult): string {
     `- Passed: ${passCount}`,
     `- Warnings: ${warnCount}`,
     `- Failed: ${failCount}`,
+    `- Info: ${infoCount}`,
     "",
     "## Page meta",
     `- Title: ${result.meta.title ?? "Not found"}`,

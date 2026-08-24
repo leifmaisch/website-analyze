@@ -86,7 +86,7 @@ export function normalizeScanUrl(input: string): URL {
 }
 
 function checkStatusScore(status: CheckStatus): number {
-  if (status === "pass") return 100
+  if (status === "pass" || status === "info") return 100
   if (status === "warn") return 65
   return 30
 }

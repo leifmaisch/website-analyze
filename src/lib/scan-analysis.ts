@@ -417,7 +417,7 @@ export function buildChecks(input: BuildChecksInput): ScanCheck[] {
           ? "pass"
           : html.modernImageCount > 0
             ? "pass"
-            : "warn",
+            : "info",
       detail:
         html.imageCount === 0
           ? "No images detected"
@@ -427,7 +427,7 @@ export function buildChecks(input: BuildChecksInput): ScanCheck[] {
       id: "preconnect-hints",
       label: "Resource hints for critical origins",
       status:
-        html.preconnectCount + html.dnsPrefetchCount > 0 ? "pass" : "warn",
+        html.preconnectCount + html.dnsPrefetchCount > 0 ? "pass" : "info",
       detail: `${html.preconnectCount} preconnect, ${html.dnsPrefetchCount} dns-prefetch`,
     },
     {
@@ -526,7 +526,7 @@ export function buildChecks(input: BuildChecksInput): ScanCheck[] {
       id: "server-disclosure",
       label: "Server technology not exposed",
       status:
-        headers.has("x-powered-by") || headers.has("server") ? "warn" : "pass",
+        headers.has("x-powered-by") || headers.has("server") ? "info" : "pass",
       detail:
         headers.has("x-powered-by") || headers.has("server")
           ? "Server or X-Powered-By header is visible"
@@ -710,7 +710,7 @@ export function buildChecks(input: BuildChecksInput): ScanCheck[] {
     {
       id: "hreflang",
       label: "hreflang tags for multilingual pages",
-      status: html.hreflangCount > 0 ? "pass" : "warn",
+      status: html.hreflangCount > 0 ? "pass" : "info",
       detail:
         html.hreflangCount > 0
           ? `${html.hreflangCount} hreflang alternate links found`
@@ -825,7 +825,7 @@ export function buildChecks(input: BuildChecksInput): ScanCheck[] {
       label: "Sampled images load successfully",
       status:
         probedImages === 0
-          ? "warn"
+          ? "info"
           : brokenImages === 0
             ? "pass"
             : "fail",
@@ -873,7 +873,7 @@ export function buildChecks(input: BuildChecksInput): ScanCheck[] {
     {
       id: "mx-records",
       label: "MX records configured for email",
-      status: dns.mx.length > 0 ? "pass" : "warn",
+      status: dns.mx.length > 0 ? "pass" : "info",
       detail:
         dns.mx.length > 0
           ? `${dns.mx.length} MX records found`

@@ -5,6 +5,8 @@ import { SharedScanPage } from "@/components/scan/shared-scan-page"
 import { getScanByShareId } from "@/lib/scans-store"
 import { createSharedScanMetadata } from "@/lib/site-metadata"
 
+export const dynamic = "force-dynamic"
+
 export async function generateMetadata({
   params,
 }: PageProps<"/r/[id]">): Promise<Metadata> {

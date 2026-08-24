@@ -30,6 +30,7 @@ import {
   type TechCategory,
 } from "@/lib/scan-detect"
 import { formatScanResultForLlm } from "@/lib/scan-result-prompt"
+import { formatScanTimestamp } from "@/lib/format-scan-timestamp"
 import { squircle } from "@/lib/squircle"
 import { surfaceDepth } from "@/lib/surface-depth"
 import { cn } from "@/lib/utils"
@@ -376,7 +377,7 @@ export function ScanResults({ result }: { result: ScanResult }) {
   )
 
   const filteredChecks = filterChecks(result.checks, checkFilter)
-  const scannedAt = new Date(result.scannedAt).toLocaleString()
+  const scannedAt = formatScanTimestamp(result.scannedAt)
 
   function goToChecks(category?: CheckCategory) {
     setActiveTab("checks")
@@ -413,7 +414,9 @@ export function ScanResults({ result }: { result: ScanResult }) {
                 {result.responseTimeMs}ms
               </span>
               <span>HTTP {result.statusCode}</span>
-              <span className="hidden sm:inline">{scannedAt}</span>
+              <span className="hidden sm:inline" suppressHydrationWarning>
+                {scannedAt}
+              </span>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
               {result.shareId ? (

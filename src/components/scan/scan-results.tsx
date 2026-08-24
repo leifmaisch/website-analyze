@@ -6,6 +6,7 @@ import {
   CheckCircleIcon,
   ClockIcon,
   GlobeIcon,
+  QuestionIcon,
   WarningCircleIcon,
   XCircleIcon,
 } from "@phosphor-icons/react"
@@ -16,8 +17,15 @@ import { Button } from "@/components/ui/button"
 import { Progress, ProgressLabel } from "@/components/ui/progress"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import type { CheckCategory, ScanCheck, ScanResult } from "@/lib/scan-types"
 import { checkCategoryLabels, getCheckCategory } from "@/lib/scan-categories"
+import { getCheckFixHint } from "@/lib/scan-check-display"
 import {
   analyticsKindLabels,
   analyticsKindOrder,
@@ -276,6 +284,8 @@ function ShareResultsButton({ shareId }: { shareId: string }) {
 }
 
 function CheckRow({ check }: { check: ScanCheck }) {
+  const fixHint = getCheckFixHint(check)
+
   return (
     <li
       style={squircle}
@@ -288,6 +298,22 @@ function CheckRow({ check }: { check: ScanCheck }) {
           <p className="text-description mt-0.5">{check.detail}</p>
         ) : null}
       </div>
+      {fixHint ? (
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <button
+                type="button"
+                className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                aria-label="How to fix"
+              >
+                <QuestionIcon weight={iconWeight} className="size-4" />
+              </button>
+            }
+          />
+          <TooltipContent side="left">{fixHint}</TooltipContent>
+        </Tooltip>
+      ) : null}
     </li>
   )
 }
@@ -387,14 +413,15 @@ export function ScanResults({ result }: { result: ScanResult }) {
   }
 
   return (
-    <div
-      id="scan-results"
-      style={squircle}
-      className={cn(
-        "overflow-hidden rounded-squircle-xl border border-border bg-card",
-        surfaceDepth("lg")
-      )}
-    >
+    <TooltipProvider>
+      <div
+        id="scan-results"
+        style={squircle}
+        className={cn(
+          "overflow-hidden rounded-squircle-xl border border-border bg-card",
+          surfaceDepth("lg")
+        )}
+      >
       <div className="border-b border-border bg-muted/20 px-4 py-4 sm:px-6 sm:py-5">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="min-w-0 flex-1">
@@ -951,6 +978,7 @@ export function ScanResults({ result }: { result: ScanResult }) {
         </Tabs>
       </div>
     </div>
+    </TooltipProvider>
   )
 }
 

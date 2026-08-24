@@ -9,6 +9,10 @@ import {
   detectTechStack,
 } from "@/lib/scan-detect"
 import { detectAnalytics } from "@/lib/scan-analytics"
+import {
+  buildResponsiveChecks,
+  captureBrowserInsights,
+} from "@/lib/scan-browser"
 import { detectFonts } from "@/lib/scan-fonts"
 import {
   checkSslCertificate,
@@ -171,7 +175,12 @@ export async function scanWebsite(input: string): Promise<ScanResult> {
   const brokenInternalLinks = internalProbe.filter((item) => !item.ok).length
   const brokenImages = imageProbe.filter((item) => !item.ok).length
 
-  const checks = buildChecks({
+  const [fonts, browserCapture] = await Promise.all([
+    detectFonts(htmlText, finalUrl),
+    captureBrowserInsights(finalUrl),
+  ])
+
+  const baseChecks = buildChecks({
     responseOk: response.ok,
     statusCode: response.status,
     responseTimeMs,
@@ -193,6 +202,8 @@ export async function scanWebsite(input: string): Promise<ScanResult> {
     probedInternal: internalProbe.length,
     probedImages: imageProbe.length,
   })
+
+  const checks = [...baseChecks, ...buildResponsiveChecks(browserCapture.responsive)]
 
   const scores: ScanScores = {
     performance: scoreCategory(checks, "performance", responseTimeMs, response.ok),
@@ -228,8 +239,9 @@ export async function scanWebsite(input: string): Promise<ScanResult> {
     scores,
     checks,
     techStack: detectTechStack(htmlText, response.headers),
-    fonts: await detectFonts(htmlText, finalUrl),
+    fonts,
     analytics: detectAnalytics(htmlText),
+    screenshots: browserCapture.screenshots,
     meta: {
       title: html.title,
       description: html.description,

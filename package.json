@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
@@ -15,6 +16,7 @@
     "clsx": "^2.1.1",
     "lucide-react": "^1.33.0",
     "next": "16.3.2",
+    "playwright": "^1.62.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "server-only": "^0.0.1",

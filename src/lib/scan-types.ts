@@ -1,4 +1,5 @@
 import type { AnalyticsItem } from "@/lib/scan-analytics"
+import type { ScanScreenshot } from "@/lib/scan-browser"
 import type { FontItem, TechItem } from "@/lib/scan-detect"
 import type { CheckCategory } from "@/lib/scan-categories"
 
@@ -59,4 +60,5 @@ export type ScanResult = {
   techStack: TechItem[]
   fonts: FontItem[]
   analytics: AnalyticsItem[]
+  screenshots: ScanScreenshot[]
 }

@@ -1,15 +1,14 @@
 "use client"
 
 import { useSearchParams } from "next/navigation"
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import { MagnifyingGlassIcon } from "@phosphor-icons/react"
 
-import { ScanError, ScanResults } from "@/components/scan/scan-results"
+import { ScanError, ScanLoading, ScanResults } from "@/components/scan/scan-results"
 import { SiteNavbar } from "@/components/site-navbar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Progress, ProgressLabel } from "@/components/ui/progress"
 import {
   Section,
   SectionDescription,
@@ -17,6 +16,7 @@ import {
   SectionTitle,
 } from "@/components/ui/section"
 import type { ScanResult } from "@/lib/scan-types"
+import { totalCheckCount } from "@/lib/scan-categories"
 import { squircle } from "@/lib/squircle"
 import { surfaceDepth } from "@/lib/surface-depth"
 import { cn } from "@/lib/utils"
@@ -31,6 +31,12 @@ export function ScanPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<ScanResult | null>(null)
+  const resultsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!result) return
+    resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }, [result])
 
   async function runScan(targetDomain: string) {
     const trimmed = targetDomain.trim()
@@ -84,8 +90,8 @@ export function ScanPage() {
           <SectionHeader>
             <SectionTitle>Free website scan</SectionTitle>
             <SectionDescription>
-              Enter a domain to check performance, SEO basics, and security
-              headers in seconds.
+              Enter a domain for {totalCheckCount} checks, mobile responsive
+              analysis, and desktop and mobile screenshots.
             </SectionDescription>
           </SectionHeader>
 
@@ -142,16 +148,7 @@ export function ScanPage() {
             </form>
           </div>
 
-          {loading ? (
-            <div className="mx-auto mt-10 max-w-2xl">
-              <Progress value={null}>
-                <ProgressLabel>Running checks</ProgressLabel>
-              </Progress>
-              <p className="text-description mt-3 text-center">
-                Fetching the page and analyzing headers, metadata, and content.
-              </p>
-            </div>
-          ) : null}
+          {loading ? <ScanLoading /> : null}
 
           {error ? (
             <div className="mx-auto mt-10 max-w-2xl">
@@ -160,7 +157,7 @@ export function ScanPage() {
           ) : null}
 
           {result ? (
-            <div className="mt-12">
+            <div ref={resultsRef} className="mt-12 scroll-mt-24">
               <ScanResults result={result} />
             </div>
           ) : null}

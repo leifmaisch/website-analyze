@@ -103,6 +103,10 @@ export const mobileCheckIds = [
   "apple-touch-icon",
   "web-manifest",
   "theme-color",
+  "no-horizontal-scroll",
+  "touch-target-size",
+  "mobile-readable-text",
+  "responsive-images",
 ]
 
 const categoryMap = new Map<string, CheckCategory>()

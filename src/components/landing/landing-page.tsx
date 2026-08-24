@@ -61,6 +61,7 @@ import {
 } from "@/components/ui/pricing"
 import { TestimonialCard, Testimonials } from "@/components/ui/testimonials"
 import { TopGlow } from "@/components/ui/top-glow"
+import { HeroGraphic } from "@/components/landing/hero-graphic"
 import { ResultGraphic } from "@/components/landing/result-graphic"
 import { SiteLogo } from "@/components/site-logo"
 import { SiteNavbar } from "@/components/site-navbar"
@@ -98,7 +99,9 @@ export function LandingPage() {
                 </Button>
               </HeroActions>
             </HeroIntro>
-            <HeroShowcase />
+            <HeroShowcase>
+              <HeroGraphic />
+            </HeroShowcase>
           </HeroFrame>
         </Hero>
 

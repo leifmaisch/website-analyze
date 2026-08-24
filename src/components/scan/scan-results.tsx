@@ -12,6 +12,10 @@ import {
 } from "@phosphor-icons/react"
 
 import { iconWeight } from "@/components/shared"
+import {
+  ViewportPreviewDetails,
+  ViewportPreviewFromScreenshots,
+} from "@/components/scan/viewport-preview"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Progress, ProgressLabel } from "@/components/ui/progress"
@@ -25,7 +29,6 @@ import {
 } from "@/components/ui/tooltip"
 import type { CheckCategory, ScanCheck, ScanResult } from "@/lib/scan-types"
 import { checkCategoryLabels, getCheckCategory } from "@/lib/scan-categories"
-import { getCheckFixHint } from "@/lib/scan-check-display"
 import {
   analyticsKindLabels,
   analyticsKindOrder,
@@ -37,8 +40,9 @@ import {
   techCategoryOrder,
   type TechCategory,
 } from "@/lib/scan-detect"
-import { formatScanResultForLlm } from "@/lib/scan-result-prompt"
+import { getCheckFixHint } from "@/lib/scan-check-display"
 import { formatScanTimestamp } from "@/lib/format-scan-timestamp"
+import { formatScanResultForLlm } from "@/lib/scan-result-prompt"
 import { squircle } from "@/lib/squircle"
 import { surfaceDepth } from "@/lib/surface-depth"
 import { cn } from "@/lib/utils"
@@ -593,34 +597,22 @@ export function ScanResults({ result }: { result: ScanResult }) {
                       </button>
                     ) : null}
                   </div>
-                  {result.screenshots.length > 0 ? (
-                    <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                      {result.screenshots.map((screenshot) => (
-                        <button
-                          key={screenshot.viewport}
-                          type="button"
-                          onClick={() => setActiveTab("preview")}
-                          className="group text-left"
-                        >
-                          <div
-                            style={squircle}
-                            className="overflow-hidden rounded-squircle-md border border-border bg-background transition-colors group-hover:border-primary/30"
-                          >
-                            <img
-                              src={screenshot.image}
-                              alt={`${screenshot.label} preview`}
-                              className="aspect-[4/3] max-h-48 w-full object-cover object-top sm:max-h-none"
-                            />
-                          </div>
-                          <p className="text-caption mt-2">{screenshot.label}</p>
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-description mt-3">
-                      Screenshots unavailable for this site.
-                    </p>
-                  )}
+                  <div className="mt-4">
+                    <ViewportPreviewFromScreenshots
+                      screenshots={result.screenshots}
+                      url={result.domain}
+                      onClick={
+                        result.screenshots.length > 0
+                          ? () => setActiveTab("preview")
+                          : undefined
+                      }
+                    />
+                    {result.screenshots.length === 0 ? (
+                      <p className="text-description mt-3">
+                        Screenshots could not be captured for this site.
+                      </p>
+                    ) : null}
+                  </div>
                 </Panel>
 
                 <Panel>
@@ -831,35 +823,18 @@ export function ScanResults({ result }: { result: ScanResult }) {
               <p className="text-description mt-1">
                 Desktop and mobile captures used for responsive checks.
               </p>
-              {result.screenshots.length > 0 ? (
-                <div className="mt-6 grid gap-6 lg:grid-cols-2">
-                  {result.screenshots.map((screenshot) => (
-                    <div key={screenshot.viewport} className="flex flex-col gap-3">
-                      <div className="flex items-center justify-between gap-2">
-                        <h4 className="text-label">{screenshot.label}</h4>
-                        <span className="text-caption">
-                          {screenshot.width} x {screenshot.height}
-                        </span>
-                      </div>
-                      <div
-                        style={squircle}
-                        className="overflow-hidden rounded-squircle-lg border border-border bg-background"
-                      >
-                        <img
-                          src={screenshot.image}
-                          alt={`${screenshot.label} screenshot of ${result.domain}`}
-                          className="h-auto w-full"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-description mt-4">
-                  Screenshots could not be captured for this site. Responsive checks
-                  may be limited.
-                </p>
-              )}
+              <div className="mt-6">
+                <ViewportPreviewDetails
+                  screenshots={result.screenshots}
+                  url={result.domain}
+                />
+                {result.screenshots.length === 0 ? (
+                  <p className="text-description mt-4">
+                    Screenshots could not be captured for this site. Responsive
+                    checks may be limited.
+                  </p>
+                ) : null}
+              </div>
             </Panel>
           </TabsContent>
 

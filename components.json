@@ -22,6 +22,7 @@
   "menuColor": "default",
   "menuAccent": "subtle",
   "registries": {
-    "@leguan": "https://leguan-ui.pages.dev/r/{name}.json"
+    "@leguan": "https://leguan-ui.pages.dev/r/{name}.json",
+    "@magicui": "https://magicui.design/r/{name}"
   }
 }

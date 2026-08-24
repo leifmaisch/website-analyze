@@ -81,17 +81,23 @@ async function main() {
     page.setDefaultTimeout(20000)
 
     try {
-      await page.goto(url, { waitUntil: "networkidle", timeout: 20000 })
+      await page.goto(url, { waitUntil: "load", timeout: 25000 })
     } catch {
-      await page.goto(url, { waitUntil: "domcontentloaded", timeout: 20000 })
+      try {
+        await page.goto(url, { waitUntil: "domcontentloaded", timeout: 25000 })
+      } catch {
+        await page.goto(url, { waitUntil: "commit", timeout: 25000 })
+      }
     }
+
+    await new Promise((resolve) => setTimeout(resolve, 800))
 
     const screenshots = []
     const responsive = { ...emptyResponsive, captured: true }
 
     for (const [viewport, size] of Object.entries(viewports)) {
       await page.setViewportSize({ width: size.width, height: size.height })
-      await new Promise((resolve) => setTimeout(resolve, 400))
+      await new Promise((resolve) => setTimeout(resolve, 500))
 
       const measured = await measureViewport(page)
 

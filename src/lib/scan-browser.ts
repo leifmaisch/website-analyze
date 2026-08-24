@@ -44,9 +44,13 @@ const captureScriptPath = path.join(
 
 function runBrowserCapture(url: string): Promise<BrowserCaptureResult> {
   return new Promise((resolve) => {
-    const child = spawn(process.execPath, [captureScriptPath, url], {
+    const     child = spawn(process.execPath, [captureScriptPath, url], {
       cwd: process.cwd(),
-      env: process.env,
+      env: {
+        ...process.env,
+        PLAYWRIGHT_BROWSERS_PATH:
+          process.env.PLAYWRIGHT_BROWSERS_PATH ?? "0",
+      },
       stdio: ["ignore", "pipe", "pipe"],
     })
 
@@ -58,7 +62,9 @@ function runBrowserCapture(url: string): Promise<BrowserCaptureResult> {
       if (settled) return
       settled = true
       clearTimeout(timer)
-      child.kill()
+      if (!child.killed) {
+        child.kill()
+      }
       resolve(result)
     }
 
@@ -85,13 +91,20 @@ function runBrowserCapture(url: string): Promise<BrowserCaptureResult> {
           console.error("browser capture failed:", stderr.trim())
         }
       }
+
       try {
-        const parsed = JSON.parse(stdout) as BrowserCaptureResult
+        const parsed = JSON.parse(stdout) as BrowserCaptureResult & { error?: string }
+        if (parsed.error) {
+          console.error("browser capture error:", parsed.error)
+        }
         finish({
           screenshots: parsed.screenshots ?? [],
           responsive: parsed.responsive ?? emptyResponsive,
         })
       } catch {
+        if (stdout.trim()) {
+          console.error("browser capture returned invalid JSON")
+        }
         finish({ screenshots: [], responsive: emptyResponsive })
       }
     })

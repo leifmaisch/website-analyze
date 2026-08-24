@@ -8,6 +8,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr"
 
 import { iconWeight } from "@/components/shared"
+import { ViewportPreview } from "@/components/scan/viewport-preview"
 import { Button } from "@/components/ui/button"
 import { checkCategoryLabels, totalCheckCount } from "@/lib/scan-categories"
 import type { CheckCategory } from "@/lib/scan-types"
@@ -248,22 +249,6 @@ function CheckRow({
   )
 }
 
-function PreviewPlaceholder({ label }: { label: string }) {
-  return (
-    <div className="group text-left">
-      <div
-        style={squircle}
-        className="overflow-hidden rounded-squircle-md border border-border bg-background transition-colors group-hover:border-primary/30"
-      >
-        <div
-          className="aspect-[4/3] max-h-40 w-full bg-[linear-gradient(180deg,color-mix(in_srgb,var(--primary)_12%,transparent),color-mix(in_srgb,var(--muted)_80%,transparent))] sm:max-h-none"
-        />
-      </div>
-      <p className="text-caption mt-2">{label}</p>
-    </div>
-  )
-}
-
 function StaticTab({
   active,
   children,
@@ -430,9 +415,8 @@ export function ResultGraphic() {
                   <h3 className="text-heading text-lg">Preview</h3>
                   <span className="text-label text-primary">Full size</span>
                 </div>
-                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <PreviewPlaceholder label="Desktop" />
-                  <PreviewPlaceholder label="Mobile" />
+                <div className="mt-4">
+                  <ViewportPreview url={sampleDomain} />
                 </div>
               </Panel>
 

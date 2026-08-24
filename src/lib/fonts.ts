@@ -1,4 +1,4 @@
-import { Geist_Mono, Inter, Rubik } from "next/font/google"
+import { Caveat, Geist_Mono, Inter, Rubik } from "next/font/google"
 
 export const inter = Inter({
   variable: "--font-inter",
@@ -16,8 +16,15 @@ export const rubik = Rubik({
   weight: ["400", "500", "600", "700"],
 })
 
+export const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+})
+
 export const leguanFontVariables = [
   inter.variable,
   geistMono.variable,
   rubik.variable,
+  caveat.variable,
 ].join(" ")

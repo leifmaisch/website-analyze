@@ -20,7 +20,7 @@ import {
   CtaEyebrow,
   CtaTitle,
 } from "@/components/ui/cta"
-import { FeatureCard, FeatureCtaCard, Features } from "@/components/ui/features"
+import { FeatureCard, FeatureOverviewCard, Features } from "@/components/ui/features"
 import {
   Footer,
   FooterBar,
@@ -113,8 +113,8 @@ export function LandingPage() {
           <SectionHeader>
             <SectionTitle>Results you can act on</SectionTitle>
             <SectionDescription>
-              Every scan delivers scores, category breakdowns, checks, tech stack
-              detection, analytics, and fonts in one report.
+              Overview scores, issue highlights, category breakdowns, viewport
+              previews, tech stack, analytics, and fonts in one report.
             </SectionDescription>
           </SectionHeader>
           <ResultGraphic />
@@ -192,36 +192,75 @@ export function LandingPage() {
               </div>
             }
           />
-          <FeatureCtaCard href="/scan" label="Start your first scan" />
+          <FeatureOverviewCard
+            title={`${totalCheckCount}-point website audit`}
+            description="Eight scored categories in one pass, from performance and SEO to security and mobile."
+            items={[
+              {
+                title: "Performance",
+                description:
+                  "Response time, compression, page size, cache headers, lazy images, and render-blocking scripts.",
+              },
+              {
+                title: "SEO",
+                description:
+                  "Titles, meta tags, Open Graph, structured data, sitemaps, hreflang, and internal link health.",
+              },
+              {
+                title: "Security",
+                description:
+                  "HTTPS, SSL expiry, security headers, mixed content, cookie flags, SRI, and security.txt.",
+              },
+              {
+                title: "Accessibility and mobile",
+                description:
+                  "Skip links, landmarks, form labels, viewport, web manifest, and theme color.",
+              },
+              {
+                title: "Privacy and content",
+                description:
+                  "Third-party domains, privacy policy links, readability, broken images, and placeholder copy.",
+              },
+              {
+                title: "Tech stack and analytics",
+                description:
+                  "Detect frameworks, UI libraries, Tailwind, shadcn, Google Analytics, ad pixels, and more.",
+              },
+            ]}
+            cta={
+              <Button render={<Link href="/scan" />}>Start your first scan</Button>
+            }
+          />
         </Features>
 
         <Testimonials
           id="testimonials"
-          title="Trusted by teams who ship fast"
-          description="From solo founders to agencies, SiteAnalyze keeps launches on track."
+          title="People are saying things"
+          description="We don't have real reviews yet. Enjoy these made-up quotes until someone actually likes us."
         >
           <TestimonialCard
-            quote="We replaced three separate tools. The reports are clear enough to send straight to clients."
-            name="Maya Chen"
-            role="Founder, Northline Studio"
+            quote="I scanned my own site and it flagged placeholder copy in three places. Rude. Accurate."
+            name="The Guy Who Built This"
+            role="Founder, probably"
             featured
           />
           <TestimonialCard
-            quote="The full audit caught accessibility and security issues our other scanners missed."
-            name="James Okonkwo"
-            role="Engineering Lead, Parcel"
+            quote="It found twelve analytics scripts on a page I called privacy-friendly. My GDPR consultant is thrilled. I am not."
+            name="Anonymous PM"
+            role="Definitely works here"
           />
           <TestimonialCard
-            quote="Tech stack and analytics detection alone saves us hours on every client onboarding call."
-            name="Elena Ruiz"
-            role="Head of Growth, Lumen"
+            quote="Best part: it's free. Worst part: I can't bill my client for premium audit tooling anymore."
+            name="Sasha K."
+            role="Agency partner (billing team furious)"
           />
         </Testimonials>
 
         <Pricing
           id="pricing"
+          scribble
           title="Simple pricing for every stage"
-          description="Start free, upgrade when you need more sites and deeper history."
+          description="Everything is free right now. Run scans and explore the full report."
         >
           <PricingCard>
             <PricingHeader>
@@ -322,14 +361,14 @@ export function LandingPage() {
                 <FooterLink label="Free scan" href="/scan" />
               </FooterColumn>
               <FooterColumn title="Company">
-                <FooterLink label="About" href="#" />
-                <FooterLink label="Blog" href="#" />
-                <FooterLink label="Careers" href="#" />
+                <FooterLink label="About" href="#" disabled />
+                <FooterLink label="Blog" href="#" disabled />
+                <FooterLink label="Careers" href="#" disabled />
               </FooterColumn>
               <FooterColumn title="Legal">
-                <FooterLink label="Privacy" href="#" />
-                <FooterLink label="Terms" href="#" />
-                <FooterLink label="Security" href="#" />
+                <FooterLink label="Privacy" href="#" disabled />
+                <FooterLink label="Terms" href="#" disabled />
+                <FooterLink label="Security" href="#" disabled />
               </FooterColumn>
             </FooterColumns>
           </FooterMain>
@@ -338,8 +377,8 @@ export function LandingPage() {
             <FooterCopyright name="SiteAnalyze" />
             <FooterLegal
               links={[
-                { label: "Privacy", href: "#" },
-                { label: "Terms", href: "#" },
+                { label: "Privacy", href: "#", disabled: true },
+                { label: "Terms", href: "#", disabled: true },
               ]}
             />
           </FooterBar>

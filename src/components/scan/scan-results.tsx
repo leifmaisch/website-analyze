@@ -12,6 +12,7 @@ import {
 
 import { iconWeight } from "@/components/shared"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
 import { Progress, ProgressLabel } from "@/components/ui/progress"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -28,6 +29,7 @@ import {
   techCategoryOrder,
   type TechCategory,
 } from "@/lib/scan-detect"
+import { formatScanResultForLlm } from "@/lib/scan-result-prompt"
 import { squircle } from "@/lib/squircle"
 import { surfaceDepth } from "@/lib/surface-depth"
 import { cn } from "@/lib/utils"
@@ -230,6 +232,26 @@ function FilterPill({
   )
 }
 
+function CopyLlmPromptButton({ result }: { result: ScanResult }) {
+  const [copied, setCopied] = useState(false)
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(formatScanResultForLlm(result))
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 2000)
+    } catch {
+      setCopied(false)
+    }
+  }
+
+  return (
+    <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
+      {copied ? "Copied" : "Copy LLM prompt"}
+    </Button>
+  )
+}
+
 function CheckRow({ check }: { check: ScanCheck }) {
   return (
     <li
@@ -371,6 +393,9 @@ export function ScanResults({ result }: { result: ScanResult }) {
               </span>
               <span>HTTP {result.statusCode}</span>
               <span className="hidden sm:inline">{scannedAt}</span>
+            </div>
+            <div className="mt-3">
+              <CopyLlmPromptButton result={result} />
             </div>
           </div>
 

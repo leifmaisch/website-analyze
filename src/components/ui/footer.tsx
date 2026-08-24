@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 type FooterLinkItem = {
   label: string
   href: string
+  disabled?: boolean
 }
 
 function Footer({
@@ -136,11 +137,28 @@ function FooterColumn({
 function FooterLink({
   label,
   href,
+  disabled = false,
   className,
-}: FooterLinkItem & { className?: string }) {
+}: FooterLinkItem & { disabled?: boolean; className?: string }) {
+  if (disabled) {
+    return (
+      <span
+        data-slot="footer-link"
+        data-disabled
+        className={cn(
+          "w-fit text-sm text-muted-foreground/40 cursor-not-allowed",
+          className
+        )}
+      >
+        {label}
+      </span>
+    )
+  }
+
   return (
     <Link
       href={href}
+      data-slot="footer-link"
       className={cn(
         "w-fit text-sm text-muted-foreground transition-colors hover:text-foreground",
         className
@@ -225,7 +243,12 @@ function FooterLegal({
     >
       {children ??
         links.map((link) => (
-          <FooterLink key={`${link.label}-${link.href}`} {...link} />
+          <FooterLink
+            key={`${link.label}-${link.href}`}
+            label={link.label}
+            href={link.href}
+            disabled={link.disabled}
+          />
         ))}
     </div>
   )

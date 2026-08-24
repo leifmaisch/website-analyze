@@ -34,7 +34,7 @@ export function SiteNavbar() {
           ))}
         </NavbarLinks>
         <NavbarActions>
-          <Button variant="ghost" render={<Link href="/#pricing" />}>
+          <Button variant="ghost" disabled className="text-muted-foreground/50">
             Sign in
           </Button>
           <Button render={<Link href="/scan" />}>Start free scan</Button>
@@ -46,7 +46,11 @@ export function SiteNavbar() {
           <NavbarMobileLink key={item.href} href={item.href} label={item.label} />
         ))}
         <NavbarMobileActions>
-          <Button variant="outline" className="w-full" render={<Link href="/#pricing" />}>
+          <Button
+            variant="outline"
+            className="w-full text-muted-foreground/50"
+            disabled
+          >
             Sign in
           </Button>
           <Button className="w-full" render={<Link href="/scan" />}>

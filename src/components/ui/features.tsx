@@ -77,6 +77,71 @@ function FeatureCard({
   )
 }
 
+type FeatureOverviewItem = {
+  title: string
+  description: string
+}
+
+type FeatureOverviewCardProps = Omit<React.ComponentProps<"article">, "children"> & {
+  title: string
+  description: string
+  items: FeatureOverviewItem[]
+  cta?: React.ReactNode
+}
+
+function FeatureOverviewCard({
+  title,
+  description,
+  items,
+  cta,
+  className,
+  ...props
+}: FeatureOverviewCardProps) {
+  return (
+    <article
+      data-slot="feature-overview-card"
+      style={squircle}
+      className={cn(
+        "flex flex-col rounded-squircle-lg border border-border bg-muted/30 p-2 lg:col-span-3",
+        className
+      )}
+      {...props}
+    >
+      <div
+        style={squircle}
+        className={cn(
+          "relative flex flex-col gap-6 rounded-squircle-md border border-border bg-card p-5 sm:p-7",
+          surfaceDepth("md")
+        )}
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-squircle-md bg-[radial-gradient(90%_80%_at_50%_0%,color-mix(in_srgb,var(--primary)_10%,transparent),transparent_65%)]"
+        />
+        <div className="relative flex flex-col gap-2">
+          <h3 className="text-title text-lg sm:text-xl">{title}</h3>
+          <p className="text-description max-w-2xl">{description}</p>
+        </div>
+        <div className="relative grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((item) => (
+            <div
+              key={item.title}
+              style={squircle}
+              className="rounded-squircle-md border border-border bg-muted/25 px-4 py-3"
+            >
+              <p className="text-title text-sm">{item.title}</p>
+              <p className="mt-1 text-description text-sm leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          ))}
+        </div>
+        {cta ? <div className="relative">{cta}</div> : null}
+      </div>
+    </article>
+  )
+}
+
 type FeatureCtaCardProps = React.ComponentProps<"a"> & {
   label?: string
 }
@@ -133,4 +198,4 @@ function Features({
   )
 }
 
-export { FeatureCard, FeatureCtaCard, Features }
+export { FeatureCard, FeatureCtaCard, FeatureOverviewCard, Features }

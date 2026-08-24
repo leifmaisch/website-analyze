@@ -1,27 +1,14 @@
 "use client"
 
-import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { FormEvent, useState } from "react"
 import { MagnifyingGlassIcon } from "@phosphor-icons/react"
 
-import { SiteLogo } from "@/components/site-logo"
 import { ScanError, ScanResults } from "@/components/scan/scan-results"
+import { SiteNavbar } from "@/components/site-navbar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Navbar,
-  NavbarActions,
-  NavbarBrand,
-  NavbarFrame,
-  NavbarLink,
-  NavbarLinks,
-  NavbarMenuButton,
-  NavbarMobileActions,
-  NavbarMobileLink,
-  NavbarMobileMenu,
-} from "@/components/ui/navbar"
 import { Progress, ProgressLabel } from "@/components/ui/progress"
 import {
   Section,
@@ -90,33 +77,7 @@ export function ScanPage() {
 
   return (
     <>
-      <Navbar sticky>
-        <NavbarFrame>
-          <NavbarBrand href="/" logo={<SiteLogo />} name="SiteAnalyze" />
-          <NavbarLinks>
-            <NavbarLink href="/#features" label="Features" />
-            <NavbarLink href="/scan" label="Free scan" active />
-            <NavbarLink href="/#pricing" label="Pricing" />
-          </NavbarLinks>
-          <NavbarActions>
-            <Button variant="ghost" render={<Link href="/#pricing" />}>
-              Sign in
-            </Button>
-            <Button render={<Link href="/scan" />}>Free scan</Button>
-          </NavbarActions>
-          <NavbarMenuButton />
-        </NavbarFrame>
-        <NavbarMobileMenu>
-          <NavbarMobileLink href="/#features" label="Features" />
-          <NavbarMobileLink href="/scan" label="Free scan" active />
-          <NavbarMobileLink href="/#pricing" label="Pricing" />
-          <NavbarMobileActions>
-            <Button className="w-full" render={<Link href="/scan" />}>
-              Free scan
-            </Button>
-          </NavbarMobileActions>
-        </NavbarMobileMenu>
-      </Navbar>
+      <SiteNavbar />
 
       <main className="flex-1">
         <Section className="pb-8 md:pb-12">

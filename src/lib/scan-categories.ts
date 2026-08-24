@@ -130,3 +130,8 @@ export const scoreCategoryIds: Record<CheckCategory, string[]> = {
   infrastructure: infrastructureCheckIds,
   mobile: mobileCheckIds,
 }
+
+export const totalCheckCount = Object.values(scoreCategoryIds).reduce(
+  (total, ids) => total + ids.length,
+  0
+)

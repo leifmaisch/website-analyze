@@ -2,9 +2,13 @@
 
 import Link from "next/link"
 import {
-  ChartLineUpIcon,
+  CodeIcon,
+  DeviceMobileIcon,
+  EyeIcon,
   GlobeIcon,
   LightningIcon,
+  ListChecksIcon,
+  LockKeyIcon,
   ShieldCheckIcon,
 } from "@phosphor-icons/react/dist/ssr"
 
@@ -43,18 +47,6 @@ import {
   HeroTitle,
 } from "@/components/ui/hero"
 import {
-  Navbar,
-  NavbarActions,
-  NavbarBrand,
-  NavbarFrame,
-  NavbarLink,
-  NavbarLinks,
-  NavbarMenuButton,
-  NavbarMobileActions,
-  NavbarMobileLink,
-  NavbarMobileMenu,
-} from "@/components/ui/navbar"
-import {
   Pricing,
   PricingAction,
   PricingAmount,
@@ -69,43 +61,21 @@ import {
 } from "@/components/ui/pricing"
 import { TestimonialCard, Testimonials } from "@/components/ui/testimonials"
 import { HeroShowcaseContent } from "@/components/landing/hero-showcase"
+import { ResultGraphic } from "@/components/landing/result-graphic"
 import { SiteLogo } from "@/components/site-logo"
+import { SiteNavbar } from "@/components/site-navbar"
+import {
+  Section,
+  SectionDescription,
+  SectionHeader,
+  SectionTitle,
+} from "@/components/ui/section"
+import { totalCheckCount } from "@/lib/scan-categories"
 
 export function LandingPage() {
   return (
     <>
-      <Navbar sticky>
-        <NavbarFrame>
-          <NavbarBrand href="/" logo={<SiteLogo />} name="SiteAnalyze" />
-          <NavbarLinks>
-            <NavbarLink href="/scan" label="Free scan" />
-            <NavbarLink href="#features" label="Features" />
-            <NavbarLink href="#testimonials" label="Testimonials" />
-            <NavbarLink href="#pricing" label="Pricing" />
-          </NavbarLinks>
-          <NavbarActions>
-            <Button variant="ghost" render={<Link href="#pricing" />}>
-              Sign in
-            </Button>
-            <Button render={<Link href="/scan" />}>Start free scan</Button>
-          </NavbarActions>
-          <NavbarMenuButton />
-        </NavbarFrame>
-        <NavbarMobileMenu>
-          <NavbarMobileLink href="/scan" label="Free scan" />
-          <NavbarMobileLink href="#features" label="Features" />
-          <NavbarMobileLink href="#testimonials" label="Testimonials" />
-          <NavbarMobileLink href="#pricing" label="Pricing" />
-          <NavbarMobileActions>
-            <Button variant="outline" className="w-full" render={<Link href="#pricing" />}>
-              Sign in
-            </Button>
-            <Button className="w-full" render={<Link href="/scan" />}>
-              Start free scan
-            </Button>
-          </NavbarMobileActions>
-        </NavbarMobileMenu>
-      </Navbar>
+      <SiteNavbar />
 
       <main>
         <Hero>
@@ -114,9 +84,9 @@ export function LandingPage() {
               <HeroLabel>Website intelligence</HeroLabel>
               <HeroTitle>Understand every site in minutes</HeroTitle>
               <HeroDescription>
-                Audit performance, SEO, accessibility, and security from one
-                dashboard. Get clear scores and actionable fixes without
-                switching tools.
+                Run {totalCheckCount} automated checks across performance, SEO,
+                security, accessibility, privacy, content, infrastructure, and
+                mobile. Detect tech stack, analytics, and fonts in one scan.
               </HeroDescription>
               <HeroActions>
                 <Button size="lg" render={<Link href="/scan" />}>
@@ -127,10 +97,10 @@ export function LandingPage() {
                 </Button>
               </HeroActions>
               <HeroChips>
-                <HeroChip>Core Web Vitals</HeroChip>
-                <HeroChip>SEO checks</HeroChip>
-                <HeroChip>Accessibility</HeroChip>
-                <HeroChip>Security headers</HeroChip>
+                <HeroChip>{totalCheckCount} checks</HeroChip>
+                <HeroChip>Tech stack</HeroChip>
+                <HeroChip>Analytics</HeroChip>
+                <HeroChip>Font detection</HeroChip>
               </HeroChips>
             </HeroIntro>
             <HeroShowcase>
@@ -139,24 +109,44 @@ export function LandingPage() {
           </HeroFrame>
         </Hero>
 
+        <Section>
+          <SectionHeader>
+            <SectionTitle>Results you can act on</SectionTitle>
+            <SectionDescription>
+              Every scan delivers scores, category breakdowns, checks, tech stack
+              detection, analytics, and fonts in one report.
+            </SectionDescription>
+          </SectionHeader>
+          <ResultGraphic />
+        </Section>
+
         <Features
           id="features"
           title="Everything you need to improve a site"
-          description="Run a full audit, track changes over time, and share reports with your team."
+          description={`${totalCheckCount} checks across 8 categories, plus tech stack, analytics, and font detection.`}
         >
           <FeatureCard
             large
-            title="Performance insights"
-            description="Measure load time, Core Web Vitals, and asset weight with clear priorities."
+            title={`${totalCheckCount}-point website audit`}
+            description="Eight scored categories in one pass, from performance and SEO to security and mobile."
             visual={
               <div className="flex h-full items-center justify-center p-6">
-                <LightningIcon className="size-16 text-primary/80" weight="duotone" />
+                <ListChecksIcon className="size-16 text-primary/80" weight="duotone" />
               </div>
             }
           />
           <FeatureCard
-            title="SEO coverage"
-            description="Catch missing metadata, broken links, and indexability issues early."
+            title="Performance"
+            description="Response time, compression, page size, cache headers, lazy images, and render-blocking scripts."
+            visual={
+              <div className="flex h-full items-center justify-center p-6">
+                <LightningIcon className="size-12 text-primary/80" weight="duotone" />
+              </div>
+            }
+          />
+          <FeatureCard
+            title="SEO"
+            description="Titles, meta tags, Open Graph, structured data, sitemaps, hreflang, and internal link health."
             visual={
               <div className="flex h-full items-center justify-center p-6">
                 <GlobeIcon className="size-12 text-primary/80" weight="duotone" />
@@ -164,8 +154,8 @@ export function LandingPage() {
             }
           />
           <FeatureCard
-            title="Security checks"
-            description="Review HTTPS, headers, and common misconfigurations in one pass."
+            title="Security"
+            description="HTTPS, SSL expiry, security headers, mixed content, cookie flags, SRI, and security.txt."
             visual={
               <div className="flex h-full items-center justify-center p-6">
                 <ShieldCheckIcon className="size-12 text-primary/80" weight="duotone" />
@@ -173,11 +163,32 @@ export function LandingPage() {
             }
           />
           <FeatureCard
-            title="Trend tracking"
-            description="Compare scans over time and spot regressions before they ship."
+            title="Accessibility and mobile"
+            description="Skip links, landmarks, form labels, viewport, web manifest, and theme color."
             visual={
               <div className="flex h-full items-center justify-center p-6">
-                <ChartLineUpIcon className="size-12 text-primary/80" weight="duotone" />
+                <div className="flex items-center gap-3">
+                  <EyeIcon className="size-10 text-primary/80" weight="duotone" />
+                  <DeviceMobileIcon className="size-10 text-primary/80" weight="duotone" />
+                </div>
+              </div>
+            }
+          />
+          <FeatureCard
+            title="Privacy and content"
+            description="Third-party domains, privacy policy links, readability, broken images, and placeholder copy."
+            visual={
+              <div className="flex h-full items-center justify-center p-6">
+                <LockKeyIcon className="size-12 text-primary/80" weight="duotone" />
+              </div>
+            }
+          />
+          <FeatureCard
+            title="Tech stack and analytics"
+            description="Detect frameworks, UI libraries, Tailwind, shadcn, Google Analytics, ad pixels, and more."
+            visual={
+              <div className="flex h-full items-center justify-center p-6">
+                <CodeIcon className="size-12 text-primary/80" weight="duotone" />
               </div>
             }
           />
@@ -196,12 +207,12 @@ export function LandingPage() {
             featured
           />
           <TestimonialCard
-            quote="The performance breakdown helped us cut LCP by 40% in a single sprint."
+            quote="The full audit caught accessibility and security issues our other scanners missed."
             name="James Okonkwo"
             role="Engineering Lead, Parcel"
           />
           <TestimonialCard
-            quote="Weekly scans catch SEO regressions before they hit search rankings."
+            quote="Tech stack and analytics detection alone saves us hours on every client onboarding call."
             name="Elena Ruiz"
             role="Head of Growth, Lumen"
           />
@@ -223,8 +234,8 @@ export function LandingPage() {
             </PricingAmount>
             <PricingFeatures>
               <PricingFeature>3 scans per month</PricingFeature>
-              <PricingFeature>Performance and SEO scores</PricingFeature>
-              <PricingFeature>Email report export</PricingFeature>
+              <PricingFeature>{totalCheckCount} checks per scan</PricingFeature>
+              <PricingFeature>Tech stack and analytics detection</PricingFeature>
               <PricingFeature included={false}>Historical comparisons</PricingFeature>
             </PricingFeatures>
             <PricingAction>
@@ -245,8 +256,8 @@ export function LandingPage() {
             </PricingAmount>
             <PricingFeatures>
               <PricingFeature>Unlimited scans</PricingFeature>
-              <PricingFeature>Full audit categories</PricingFeature>
-              <PricingFeature>30-day scan history</PricingFeature>
+              <PricingFeature>All 8 score categories</PricingFeature>
+              <PricingFeature>Font detection and scan history</PricingFeature>
               <PricingFeature>Shareable client reports</PricingFeature>
             </PricingFeatures>
             <PricingAction>
@@ -283,8 +294,8 @@ export function LandingPage() {
           <CtaEyebrow>Ready when you are</CtaEyebrow>
           <CtaTitle>Run your first scan in under a minute</CtaTitle>
           <CtaDescription>
-            Paste a URL, get a complete health report, and know exactly what to
-            fix next.
+            Paste a URL and get {totalCheckCount} checks, category scores, tech
+            stack detection, analytics insights, and font analysis in one report.
           </CtaDescription>
           <CtaActions>
             <Button size="lg" render={<Link href="/scan" />}>
@@ -301,8 +312,8 @@ export function LandingPage() {
         <FooterPanel>
           <FooterMain>
             <FooterBrand href="/" logo={<SiteLogo />} name="SiteAnalyze">
-              Clear website audits for teams who care about quality, speed, and
-              search visibility.
+              Clear website audits for teams who care about quality, speed, search
+              visibility, and security.
             </FooterBrand>
             <FooterColumns>
               <FooterColumn title="Product">

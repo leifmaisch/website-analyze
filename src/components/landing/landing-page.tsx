@@ -261,7 +261,11 @@ export function LandingPage() {
               <PricingFeature included={false}>Historical comparisons</PricingFeature>
             </PricingFeatures>
             <PricingAction>
-              <Button className="w-full" variant="outline" render={<Link href="/scan" />}>
+              <Button
+                className="w-full text-muted-foreground/50"
+                variant="outline"
+                disabled
+              >
                 Get started
               </Button>
             </PricingAction>
@@ -283,7 +287,7 @@ export function LandingPage() {
               <PricingFeature>Shareable client reports</PricingFeature>
             </PricingFeatures>
             <PricingAction>
-              <Button className="w-full" render={<Link href="#cta" />}>
+              <Button className="w-full text-muted-foreground/50" disabled>
                 Start trial
               </Button>
             </PricingAction>
@@ -305,7 +309,11 @@ export function LandingPage() {
               <PricingFeature>Priority support</PricingFeature>
             </PricingFeatures>
             <PricingAction>
-              <Button className="w-full" variant="outline" render={<Link href="#cta" />}>
+              <Button
+                className="w-full text-muted-foreground/50"
+                variant="outline"
+                disabled
+              >
                 Contact sales
               </Button>
             </PricingAction>

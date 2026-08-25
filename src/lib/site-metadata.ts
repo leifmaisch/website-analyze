@@ -44,6 +44,23 @@ function absoluteSiteUrl(path: string) {
   return new URL(path, siteUrl).href
 }
 
+const defaultOgImageAlt = `${siteName} | ${siteTagline}`
+
+function createDefaultSocialImages() {
+  return {
+    openGraph: [
+      {
+        url: absoluteSiteUrl("/opengraph-image"),
+        width: 1200,
+        height: 630,
+        alt: defaultOgImageAlt,
+        type: "image/png",
+      },
+    ],
+    twitter: [absoluteSiteUrl("/opengraph-image")],
+  }
+}
+
 export function createSiteMetadata(): Metadata {
   const siteUrl = getSiteUrl()
 
@@ -96,6 +113,7 @@ export function createSiteMetadata(): Metadata {
 
 export function createScanMetadata(): Metadata {
   const description = `Enter a domain for ${totalCheckCount} checks, desktop and mobile screenshots, tech stack detection, and a full audit report.`
+  const images = createDefaultSocialImages()
 
   return {
     title: "Free website scan",
@@ -104,10 +122,13 @@ export function createScanMetadata(): Metadata {
       title: "Free website scan",
       description,
       url: "/scan",
+      images: images.openGraph,
     },
     twitter: {
+      card: "summary_large_image",
       title: "Free website scan",
       description,
+      images: images.twitter,
     },
     alternates: getSiteUrl() ? { canonical: "/scan" } : undefined,
   }
@@ -123,7 +144,7 @@ export function createSharedScanMetadata(
   const imageAlt = `${result.domain} audit · score ${result.scores.overall}`
   const sharePath = `/r/${shareId}`
   const ogImagePath = `/r/${shareId}/opengraph-image`
-  const twitterImagePath = `/r/${shareId}/twitter-image`
+  const ogImageUrl = absoluteSiteUrl(ogImagePath)
 
   return {
     metadataBase: siteUrl ? new URL(siteUrl) : undefined,
@@ -132,13 +153,16 @@ export function createSharedScanMetadata(
     openGraph: {
       title,
       description,
+      siteName,
+      type: "website",
       url: sharePath,
       images: [
         {
-          url: absoluteSiteUrl(ogImagePath),
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: imageAlt,
+          type: "image/png",
         },
       ],
     },
@@ -146,7 +170,7 @@ export function createSharedScanMetadata(
       card: "summary_large_image",
       title,
       description,
-      images: [absoluteSiteUrl(twitterImagePath)],
+      images: [ogImageUrl],
     },
     alternates: siteUrl ? { canonical: sharePath } : undefined,
   }

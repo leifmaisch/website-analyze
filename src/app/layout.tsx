@@ -1,6 +1,7 @@
 import { leguanFontVariables } from "@/lib/fonts"
 import { createSiteMetadata } from "@/lib/site-metadata"
 import type { Viewport } from "next"
+import Script from "next/script"
 
 import { StructuredData } from "@/components/structured-data"
 
@@ -27,6 +28,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <StructuredData />
         {children}
+        <Script
+          defer
+          src="https://cdn.dumbledor.com/script.js"
+          data-website-id="b68a2457-ef98-4726-a47c-2618cace1717"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   )

@@ -134,6 +134,30 @@ export function createScanMetadata(): Metadata {
   }
 }
 
+export function createApiDocsMetadata(): Metadata {
+  const description =
+    "Integrate Webcheck scans into your apps. POST a domain to /api/scan and receive scores, checks, screenshots, and a shareable report link."
+  const images = createDefaultSocialImages()
+
+  return {
+    title: "API documentation",
+    description,
+    openGraph: {
+      title: "API documentation",
+      description,
+      url: "/api-docs",
+      images: images.openGraph,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "API documentation",
+      description,
+      images: images.twitter,
+    },
+    alternates: getSiteUrl() ? { canonical: "/api-docs" } : undefined,
+  }
+}
+
 export function createSharedScanMetadata(
   result: { domain: string; scores: { overall: number } },
   shareId: string

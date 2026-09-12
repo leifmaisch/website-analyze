@@ -350,6 +350,7 @@ export function LandingPage() {
                 <FooterLink label="Features" href="#features" />
                 <FooterLink label="Pricing" href="#pricing" />
                 <FooterLink label="Free scan" href="/scan" />
+                <FooterLink label="API" href="/api-docs" />
               </FooterColumn>
               <FooterColumn title="Company">
                 <FooterLink label="About" href="#" disabled />

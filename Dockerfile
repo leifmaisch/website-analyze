@@ -19,10 +19,10 @@ RUN pnpm build
 
 FROM node:22-bookworm-slim AS playwright-runtime
 WORKDIR /playwright
-RUN printf '%s\n' '{"private":true,"dependencies":{"playwright":"1.62.1"}}' > package.json && \
+RUN printf '%s\n' '{"private":true,"dependencies":{"playwright":"1.63.0"}}' > package.json && \
     npm install --ignore-scripts --omit=dev
 
-FROM mcr.microsoft.com/playwright:v1.62.1-noble AS runner
+FROM mcr.microsoft.com/playwright:v1.63.0-noble AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
